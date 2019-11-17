@@ -204,35 +204,6 @@
                     <tspan dy="-4" p:name="textSpan" id="aded804b8118427093c0e0e81e45e73e" dx="-16"/>
                 </textPath>
             </text>
-        </g><g p:type="Shape" p:def="Evolus.Flowchart:Document" id="987d491b38b34a79b608d6d259dec602" transform="matrix(1,0,0,1,157,20)"><p:metadata><p:property name="box">160,80</p:property><p:property name="outputPin1Origin">80,0</p:property><p:property name="outputPin1">80,0</p:property><p:property name="outputPin2Origin">160,40</p:property><p:property name="outputPin2">160,40</p:property><p:property name="outputPin3Origin">80,80</p:property><p:property name="outputPin3">80,80</p:property><p:property name="outputPin4Origin">0,40</p:property><p:property name="outputPin4">0,40</p:property><p:property name="fillColor">#BDDFFFFF</p:property><p:property name="strokeColor">#666666FF</p:property><p:property name="strokeStyle">2|</p:property><p:property name="textContent">projects.json</p:property><p:property name="textFont">Nawabiat|normal|normal|23px|none</p:property><p:property name="textColor">#000000FF</p:property><p:property name="textAlign">1,1</p:property><p:property name="optionText1"/><p:property name="optionText2"/><p:property name="optionText3"/><p:property name="optionText4"/><p:property name="optionTextFont">Helvetica|normal|normal|12px|none</p:property><p:property name="optionTextColor">#666666FF</p:property></p:metadata>
-            <path style="stroke-linejoin: round; stroke: rgb(102, 102, 102); stroke-opacity: 1; stroke-width: 2; fill: rgb(189, 223, 255); fill-opacity: 1;" p:name="path" id="7b7504ca12b7493e9fcb7128f413b091" transform="translate(0,0)" d="M 0 0 L 160 0 L 160 64 C 120 64 120 64 80 72 S 40 80 0 72 z"/>
-
-            <text p:name="text1" id="3f6e317a678d4e64bcc10d237ffbce63" style="font-family: Helvetica; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(102, 102, 102); fill-opacity: 1; visibility: hidden; display: none;">
-                <textPath xlink:href="#76a32d9fbc0146febee72140e96ab458" startOffset="50%" text-anchor="middle" alignment-baseline="middle">
-                    <tspan dy="-4" p:name="textSpan1" id="f17a2bac7b6447489ce42177c98ef327" dx="0"/>
-                </textPath>
-            </text>
-            <text p:name="text2" id="bf2b31bc9cd148e3abf0d567b9e78e2a" style="font-family: Helvetica; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(102, 102, 102); fill-opacity: 1; visibility: hidden; display: none;">
-                <textPath xlink:href="#9174786c0c4348d0a01fa2698dcc98e0" startOffset="50%" text-anchor="middle" alignment-baseline="middle">
-                    <tspan dy="-4" p:name="textSpan2" id="8b7c44cd3ae04a7ba2e080dd6cd59bc5" dx="0"/>
-                </textPath>
-            </text>
-            <text p:name="text3" id="734656ef33a14061bf4c4ae9554c81da" style="font-family: Helvetica; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(102, 102, 102); fill-opacity: 1; visibility: hidden; display: none;">
-                <textPath xlink:href="#c285285a0bee4091a1dce04b3bdf9872" startOffset="50%" text-anchor="middle" alignment-baseline="middle">
-                    <tspan dy="-4" p:name="textSpan3" id="934bd766cc9347c2b8adbac1af4a2132" dx="0"/>
-                </textPath>
-            </text>
-            <text p:name="text4" id="de6530fe569d441a98fdaa751ac81c71" style="font-family: Helvetica; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(102, 102, 102); fill-opacity: 1; visibility: hidden; display: none;">
-                <textPath xlink:href="#2fa84fafacb7400ab2fd7ad46369db0a" startOffset="50%" text-anchor="middle" alignment-baseline="middle-left">
-                    <tspan dy="-4" p:name="textSpan4" id="ece954c9d60149108e41ac8a3181b1f1" dx="0"/>
-                </textPath>
-            </text>
-
-            <text text-anchor="start" xml:space="preserve" p:name="text" id="1aacc309f06643ec8ef14816bc8ff5e3" style="font-family: Nawabiat; font-size: 23px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(12,39)"><tspan x="15.3359375" y="0">projects.json</tspan></text>
-            <path style="stroke-linejoin: round; fill: none; stroke: rgb(102, 102, 102); stroke-opacity: 1; stroke-width: 2;" p:name="outputArrrow1" id="76a32d9fbc0146febee72140e96ab458" d=""/>
-            <path style="stroke-linejoin: round; fill: none; stroke: rgb(102, 102, 102); stroke-opacity: 1; stroke-width: 2;" p:name="outputArrrow2" id="9174786c0c4348d0a01fa2698dcc98e0" d=""/>
-            <path style="stroke-linejoin: round; fill: none; stroke: rgb(102, 102, 102); stroke-opacity: 1; stroke-width: 2;" p:name="outputArrrow3" id="c285285a0bee4091a1dce04b3bdf9872" d=""/>
-            <path style="stroke-linejoin: round; fill: none; stroke: rgb(102, 102, 102); stroke-opacity: 1; stroke-width: 2;" p:name="outputArrrow4" id="2fa84fafacb7400ab2fd7ad46369db0a" d=""/>
         </g><g p:type="Shape" p:def="Evolus.Flowchart:AlternateProcess" id="d2629b57ccad46aeb1e008e216270c38" transform="matrix(1,0,0,1,132,145)"><p:metadata><p:property name="box">211,57</p:property><p:property name="outputPin1Origin">105.5,0</p:property><p:property name="outputPin1">105.5,0</p:property><p:property name="outputPin2Origin">211,28.5</p:property><p:property name="outputPin2">211,28.499999999999996</p:property><p:property name="outputPin3Origin">105.5,57</p:property><p:property name="outputPin3">105.5,56.99999999999999</p:property><p:property name="outputPin4Origin">0,28.5</p:property><p:property name="outputPin4">0,28.499999999999996</p:property><p:property name="fillColor">#BDDFFFFF</p:property><p:property name="strokeColor">#666666FF</p:property><p:property name="strokeStyle">2|</p:property><p:property name="textContent">Read list of project locations</p:property><p:property name="textFont">Nawabiat|normal|normal|23px|none</p:property><p:property name="textColor">#000000FF</p:property><p:property name="textAlign">1,1</p:property><p:property name="optionText1"/><p:property name="optionText2"/><p:property name="optionText3"/><p:property name="optionText4"/><p:property name="optionTextFont">Helvetica|normal|normal|12px|none</p:property><p:property name="optionTextColor">#666666FF</p:property></p:metadata>
             <rect style="stroke-linejoin: round; stroke: rgb(102, 102, 102); stroke-opacity: 1; stroke-width: 2; fill: rgb(189, 223, 255); fill-opacity: 1;" p:name="path" id="06a1640a824749049ab6d4730db028c6" transform="translate(0,0)" x="0" y="0" width="211" height="57" rx="7.125" ry="7.125"/>
             <text p:name="text1" id="f9d289a232ca4450b2c4ecf9a520a553" style="font-family: Helvetica; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(102, 102, 102); fill-opacity: 1; visibility: hidden; display: none;">
@@ -272,4 +243,7 @@
                     <tspan dy="-4" p:name="textSpan" id="49bbcc07cf284cc6a3132edbfe8ecb9c" dx="-16"/>
                 </textPath>
             </text>
+        </g><g p:type="Shape" p:def="Evolus.Common:PlainTextV3" id="67c21bf4802c48b3bb14cf2dd3ee8f15" transform="matrix(1,0,0,1,91,63)"><p:metadata><p:property name="disabled">false</p:property><p:property name="width">100,0</p:property><p:property name="fixedWidth">false</p:property><p:property name="label">[ { "location": "blah/blah/blah.git" } ]</p:property><p:property name="textColor">#000000FF</p:property><p:property name="textFont">Nawabiat|normal|normal|23px|none</p:property><p:property name="textAlign">0,0</p:property></p:metadata>
+            <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="0b05beb583ff4315b6a200a351123d58" width="284.0625" height="23"/>
+            <text xml:space="preserve" dominant-baseline="hanging" p:name="text" id="66e124c9bdaf47d5a1f32a0b73df068b" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: Nawabiat; font-size: 23px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">[ { "location": "blah/blah/blah.git" } ]</tspan></text>
         </g></g></g></svg>

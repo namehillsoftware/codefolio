@@ -6,9 +6,12 @@
   "dependencies": {
     "typescript": "^3.7.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^6.2.2",
+    "mocha-typescript": "^1.1.17"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "David Vedvick (dvedvick@gmail.com)",
   "license": "ISC"
