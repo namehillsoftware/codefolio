@@ -4,11 +4,19 @@
   "description": "A tool to help you show off your projects",
   "main": "index.js",
   "dependencies": {
-    "typescript": "^3.7.2"
+    "rehype-stringify": "^6.0.1",
+    "remark-parse": "^7.0.2",
+    "remark-rehype": "^5.0.0",
+    "unified": "^8.4.2",
+    "unified-stream": "^1.0.5"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.5",
+    "@types/node": "^12.12.9",
+    "chai": "^4.2.0",
     "mocha": "^6.2.2",
-    "mocha-typescript": "^1.1.17"
+    "mocha-typescript": "^1.1.17",
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "test": "mocha"
