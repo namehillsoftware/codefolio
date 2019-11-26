@@ -3,17 +3,25 @@ import ProjectTextProcessor from "../../ProjectTextProcessor";
 require('chai').should();
 
 describe("given text", () => {
-    describe("when processing the project", async () => {
+    describe("when processing the project", () => {
         const projectTestProcessor = new ProjectTextProcessor();
-        const project = await projectTestProcessor.promiseProjectText(
+        const projectTask = projectTestProcessor.promiseProjectText(
             "#    My Fake Project" +
             "\n" +
             "\n" +
             "Here's the body copy" +
             "\n");
 
-        it("should have the right headline", () => project.headline.should.be("My Fake Project"));
+        it("should have the right headline", async () => {
+            const project = await projectTask;
 
-        it("should have the right body", () => project.body.should.be("Here's the body copy"));
+            project.headline.should.equal("My Fake Project");
+        });
+
+        it("should have the right body", async () => {
+            const project = await projectTask;
+            
+            project.body.should.equal("Here's the body copy");
+        });
     });
 });

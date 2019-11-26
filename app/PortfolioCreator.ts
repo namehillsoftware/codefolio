@@ -22,8 +22,9 @@ export default class {
                 .process(project.location);
 
             return {
-                BodyCopy: "hi",
-                ImageLocation: "img.jpg"
+                headline: "something",
+                body: "hi",
+                imageLocation: "img.jpg"
             };
         }));
     }

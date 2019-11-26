@@ -4,6 +4,7 @@
   "description": "A tool to help you show off your projects",
   "main": "index.js",
   "dependencies": {
+    "mdast-util-to-string": "^1.0.7",
     "rehype-stringify": "^6.0.1",
     "remark-parse": "^7.0.2",
     "remark-rehype": "^5.0.0",
@@ -13,13 +14,15 @@
   "devDependencies": {
     "@types/chai": "^4.2.5",
     "@types/node": "^12.12.9",
+    "@types/unist": "^2.0.3",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
     "mocha-typescript": "^1.1.17",
+    "ts-node": "^8.5.2",
     "typescript": "^3.7.2"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -r ts-node/register ./app/**/specs/**/*.ts"
   },
   "author": "David Vedvick (dvedvick@gmail.com)",
   "license": "ISC"
