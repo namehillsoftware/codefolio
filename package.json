@@ -5,9 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "mdast-util-to-string": "^1.0.7",
-    "rehype-stringify": "^6.0.1",
     "remark-parse": "^7.0.2",
-    "remark-rehype": "^5.0.0",
+    "remark-stringify": "^7.0.4",
     "unified": "^8.4.2",
     "unified-stream": "^1.0.5"
   },

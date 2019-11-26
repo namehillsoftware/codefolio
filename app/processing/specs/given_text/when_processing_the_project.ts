@@ -9,7 +9,7 @@ describe("given text", () => {
             "#    My Fake Project" +
             "\n" +
             "\n" +
-            "Here's the body copy" +
+            "Here's the **body** copy" +
             "\n");
 
         it("should have the right headline", async () => {
@@ -21,7 +21,7 @@ describe("given text", () => {
         it("should have the right body", async () => {
             const project = await projectTask;
             
-            project.body.should.equal("Here's the body copy");
+            project.body.should.equal("Here's the **body** copy");
         });
     });
 });
