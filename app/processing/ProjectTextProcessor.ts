@@ -12,6 +12,14 @@ interface ITest<T> {
     (item: T): boolean;
 }
 
+function* skip<T>(items: Iterable<T>, count: number) {
+    let skipped = 0;
+    for (let item of items) {
+        if (skipped++ < count) continue;
+        yield item;
+    }
+}
+
 function* skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
     let firstHit = false;
     for (let item of items) {
@@ -19,7 +27,6 @@ function* skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
             if (!predicate(item)) continue;
 
             firstHit = true;
-            continue;
         }
         
         yield item;
@@ -44,7 +51,10 @@ export default class ProjectTextProcessor implements IProcessProjectText {
             children: headlineParent.children
         };
 
-        const bodyContent = takeUntil(skipUntil(markdown.children, (item) => item === headlineParent), (item) => item.type === "heading" && (<any>item).depth === 1);
+        const bodyContent = 
+            takeUntil(
+                skip(skipUntil(markdown.children, (item) => item === headlineParent), 1),
+                (item) => item.type === "heading" && (<any>item).depth === 1);
         const bodyNode: Parent = {
             type: "root", 
             children: [...bodyContent]
