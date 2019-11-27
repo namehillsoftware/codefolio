@@ -25,7 +25,7 @@ describe("given text", () => {
 And some more text, _la-di-da-di-da_`
 
         const projectTestProcessor = new ProjectTextProcessor();
-        const projectTask = projectTestProcessor.processProjectText(
+        const project = projectTestProcessor.processProjectText(
 `
 ## A sub-heading first, what?
 
@@ -43,16 +43,8 @@ ${body}
 
 Here's some more text, hey hey!`);
 
-        it("should have the right headline", async () => {
-            const project = await projectTask;
+        it("should have the right headline", () => project.headline.trim().should.equal(heading.trim()));
 
-            project.headline.trim().should.equal(heading.trim());
-        });
-
-        it("should have the right body", async () => {
-            const project = await projectTask;
-            
-            project.body.trim().should.equal(body.trim());
-        });
+        it("should have the right body", () => project.body.trim().should.equal(body.trim()));
     });
 });

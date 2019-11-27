@@ -1,10 +1,6 @@
 # Codefolio
 
-Codefolio is a basic portfolio renderer for your git projects. It is reliant on just 3 items:
-
-1. A list of git repos
-2. For each git repo, a headline section for each project. By default, this will be the first `#` headline and the text within it. This can also be configured per project to be a different file.
-3. For each git repo, a headline image for each project. By default this will be the first image in the project's README. Again, this can be configured per project.
+Codefolio is a basic portfolio renderer for your git projects.
 
 ## Why?
 
@@ -12,10 +8,11 @@ Codefolio fulfills a niche need: developers will often have many side projects, 
 
 ## How?
 
-Codefolio aims to solve this problem by providing a convention for reading a basic *headline* and *summary* for the project from the project's README.md (or README.markdown, README):
+Codefolio aims to solve this problem by providing a convention for reading a basic **headline**, **summary**, and **image** for the project from the project's README.md (or README.markdown, README):
 
 - The first level one heading (`# Hi I'm a level one heading`) is the headline for the project
-- The text after that heading is the body, until the **next** level one heading is hit
+- The text after that heading is the body, until the **next** level one heading is hit - not including any images
+- The first image before the second level one heading in the document is considered the logo for the project
 
 # Example Usage
 
@@ -28,3 +25,5 @@ const portfolios = await portfolio.promisePortfolios('https://github.com/namehil
 
 // Do things with portfolios...
 ```
+
+# Contributing
