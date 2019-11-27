@@ -3,6 +3,7 @@ import markdown from 'remark-parse';
 import stringify from 'remark-stringify'
 
 import IProcessProjectText from "./IProcessProjectText";
+import Portfolio from "../Portfolio";
 import vfile from 'vfile';
 import { Parent } from 'unist';
 
@@ -15,8 +16,12 @@ interface ITest<T> {
 function* skip<T>(items: Iterable<T>, count: number) {
     let skipped = 0;
     for (let item of items) {
-        if (skipped++ < count) continue;
-        yield item;
+        if (skipped >= count) {
+            yield item;
+            continue;
+        }
+        
+        ++skipped;
     }
 }
 
@@ -41,13 +46,13 @@ function* takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 }
 
 export default class ProjectTextProcessor implements IProcessProjectText {
-    async promiseProjectText(text: string): Promise<import("../Portfolio").default> {
+    processProjectText(text: string): Portfolio {
         const markdown = markdownProcessor.parse(vfile(text)) as Parent;
 
         const headings = markdown.children.filter(k => k.type === "heading" && (<any>k).depth === 1);
         const headlineParent = headings.length > 0 ? <Parent>headings[0] : null
         const headline: Parent = {
-            type: "root",
+            type: "paragraph",
             children: headlineParent.children
         };
 
@@ -60,8 +65,6 @@ export default class ProjectTextProcessor implements IProcessProjectText {
             children: [...bodyContent]
         };
 
-        console.log(bodyNode);
-        
         return {
             headline: markdownProcessor.stringify(headline),
             body: markdownProcessor.stringify(bodyNode),

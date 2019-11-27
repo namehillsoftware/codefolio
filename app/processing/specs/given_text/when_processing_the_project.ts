@@ -25,7 +25,7 @@ describe("given text", () => {
 And some more text, _la-di-da-di-da_`
 
         const projectTestProcessor = new ProjectTextProcessor();
-        const projectTask = projectTestProcessor.promiseProjectText(
+        const projectTask = projectTestProcessor.processProjectText(
 `
 ## A sub-heading first, what?
 

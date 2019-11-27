@@ -1,5 +1,5 @@
 import Portfolio from "../Portfolio";
 
 export default interface IProcessProjectText {
-    promiseProjectText(text: string): Promise<Portfolio>;
+    processProjectText(text: string): Portfolio;
 }
