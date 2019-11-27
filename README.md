@@ -15,7 +15,7 @@ Codefolio fulfills a niche need: developers will often have many side projects, 
 Codefolio aims to solve this problem by providing a convention for reading a basic *headline* and *summary* for the project from the project's README.md (or README.markdown, README):
 
 - The first level one heading (`# Hi I'm a level one heading`) is the headline for the project
-- The test after that heading is the body, until the **next** level one heading is hit
+- The text after that heading is the body, until the **next** level one heading is hit
 
 # Example Usage
 
