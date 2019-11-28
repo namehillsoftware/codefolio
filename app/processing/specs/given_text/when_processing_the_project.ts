@@ -46,10 +46,10 @@ ${body}
 
 Here's some more text, hey hey!`);
 
-        it("should have the right headline", () => portfolio.headline.trim().should.equal(heading.trim()));
+        it("then it should have the right headline", () => portfolio.headline.trim().should.equal(heading.trim()));
         
-        it("should have the right summary", () => portfolio.summary.trim().should.equal(summary.trim()));
+        it("then it should have the right summary", () => portfolio.summary.trim().should.equal(summary.trim()));
 
-        it("should have the right body", () => portfolio.body.trim().should.equal(body.trim()));
+        it("then it should have the right body", () => portfolio.body.trim().should.equal(body.trim()));
     });
 });

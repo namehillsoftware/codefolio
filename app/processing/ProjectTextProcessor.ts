@@ -5,7 +5,7 @@ import stringify from 'remark-stringify'
 import IProcessProjectText from "./IProcessProjectText";
 import Portfolio from "../Portfolio";
 import vfile from 'vfile';
-import { Parent } from 'unist';
+import { Node, Parent } from 'unist';
 
 const markdownProcessor = unified().use(markdown, {gfm: true}).use(stringify, { listItemIndent: "mixed" });
 
@@ -13,74 +13,72 @@ interface ITest<T> {
     (item: T): boolean;
 }
 
-function* skip<T>(items: Iterable<T>, count: number) {
+function skip<T>(items: Iterable<T>, count: number) {
     let skipped = 0;
-    for (let item of items) {
-        if (skipped >= count) {
-            yield item;
-            continue;
+    return skipUntil(items, () => skipped++ >= count);
+}
+
+function skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
+    return {
+        [Symbol.iterator]: function* () {
+            let firstHit = false;
+            for (const item of items) {
+                if (!firstHit) {
+                    if (!predicate(item)) continue;
+
+                    firstHit = true;
+                }
+                
+                yield item;
+            }
         }
-        
-        ++skipped;
     }
 }
 
-function* skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
-    let firstHit = false;
-    for (let item of items) {
-        if (!firstHit) {
-            if (!predicate(item)) continue;
-
-            firstHit = true;
-        }
-        
-        yield item;
-    }
-}
-
-function* take<T>(items: Iterable<T>, count: number) {
+function take<T>(items: Iterable<T>, count: number) {
     let taken = 0;
-    for (let item of items) {
-        if (taken >= count) break;
-        
-        ++taken;
-        yield item;
+    return takeUntil(items, () => taken++ >= count);
+}
+
+function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
+    return {
+        [Symbol.iterator]: function* () {
+            for (const item of items) {
+                if (predicate(item)) return;
+                yield item;
+            }
+        }
     }
 }
 
-function* takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
-    for (let item of items) {
-        if (predicate(item)) break;
-        yield item;
-    }
+function isLevelOneHeading(node: Node) {
+    return node.type === "heading" && (<any>node).depth === 1;
 }
 
 export default class ProjectTextProcessor implements IProcessProjectText {
     processProjectText(text: string): Portfolio {
         const markdown = markdownProcessor.parse(vfile(text)) as Parent;
 
-        const headings = markdown.children.filter(k => k.type === "heading" && (<any>k).depth === 1);
+        const headings = markdown.children.filter(isLevelOneHeading);
         const headlineParent = headings.length > 0 ? <Parent>headings[0] : null
         const headline: Parent = {
             type: "paragraph",
             children: headlineParent.children
         };
 
-        const subheadingCandidates = 
-            take(
-                skip(
-                    skipUntil(markdown.children, (item) => item === headlineParent), 1), 1);
+        let remainingElements = skip(skipUntil(markdown.children, (item) => item === headlineParent), 1);
+        
+        const subheadingCandidate = take(remainingElements, 1);
 
-        const subheadingParent = [...subheadingCandidates].filter(c => ["heading", "paragraph"].includes(c.type))[0] as Parent;
-        const subheading: Parent = {
-            type: "paragraph",
-            children: subheadingParent.children
-        };
+        const subheadingParent = [...subheadingCandidate].filter(c => ["heading"].includes(c.type))[0] as Parent;
+        const subheading: Parent = subheadingParent
+            ? { type: "paragraph", children: subheadingParent.children }
+            : null;
 
-        const bodyContent = 
-            takeUntil(
-                skip(skipUntil(markdown.children, (item) => item === (subheadingParent || headlineParent)), 1),
-                (item) => item.type === "heading" && (<any>item).depth === 1);
+        if (subheadingParent)
+            remainingElements = skip(remainingElements, 2);
+
+        const bodyContent = takeUntil(remainingElements, isLevelOneHeading);
 
         const bodyNode: Parent = {
             type: "root", 
