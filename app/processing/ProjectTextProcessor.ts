@@ -38,6 +38,16 @@ function* skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
     }
 }
 
+function* take<T>(items: Iterable<T>, count: number) {
+    let taken = 0;
+    for (let item of items) {
+        if (taken >= count) break;
+        
+        ++taken;
+        yield item;
+    }
+}
+
 function* takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
     for (let item of items) {
         if (predicate(item)) break;
@@ -56,10 +66,22 @@ export default class ProjectTextProcessor implements IProcessProjectText {
             children: headlineParent.children
         };
 
+        const subheadingCandidates = 
+            take(
+                skip(
+                    skipUntil(markdown.children, (item) => item === headlineParent), 1), 1);
+
+        const subheadingParent = [...subheadingCandidates].filter(c => ["heading", "paragraph"].includes(c.type))[0] as Parent;
+        const subheading: Parent = {
+            type: "paragraph",
+            children: subheadingParent.children
+        };
+
         const bodyContent = 
             takeUntil(
-                skip(skipUntil(markdown.children, (item) => item === headlineParent), 1),
+                skip(skipUntil(markdown.children, (item) => item === (subheadingParent || headlineParent)), 1),
                 (item) => item.type === "heading" && (<any>item).depth === 1);
+
         const bodyNode: Parent = {
             type: "root", 
             children: [...bodyContent]
@@ -68,6 +90,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
         return {
             headline: markdownProcessor.stringify(headline),
             body: markdownProcessor.stringify(bodyNode),
+            summary: markdownProcessor.stringify(subheading),
             imageLocation: ""
         }
     }
