@@ -76,7 +76,15 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 
         let remainingElements = skip(skipUntil(markdown.children, (item) => item === headlineParent), 1);
 
-        const subheadingCandidate = Array.from(take(remainingElements, 1)).filter(c => ["heading", "paragraph"].includes(c.type));
+        const subheadingCandidate = Array.from(take(remainingElements, 1))
+            .filter(c => {
+                switch (c.type) {
+                    case "paragraph": return true;
+                    case "heading":
+                        return (<any>c).depth > 1;
+                    default: return false;
+                }
+            });
 
         const subheadingParent = subheadingCandidate.length > 0 ? <Parent>subheadingCandidate[0] : null;
         const subheading: Parent = subheadingParent
