@@ -2,15 +2,14 @@ import ProjectTextProcessor from "../../../ProjectTextProcessor";
 import { expect } from 'chai';
 
 describe("given text", () => {
-    describe("without a summary", () => {
+    describe("with_a_paragraph_summary", () => {
         describe("when processing the project", () => {
             const heading = `    My _Fake_ Project`
 
-            const body =
-`
-- A list begins right away
+            const summary = ` Wow this library **is** fantastic!`;
 
-Here's the **body** copy
+            const body =
+`Here's the **body** copy
 
 - Here's a bulleted list
 - With another bullet item
@@ -36,6 +35,8 @@ Some more random **text**.
 
 # ${heading}
 
+${summary}
+
 ${body}
 
 
@@ -47,7 +48,7 @@ Here's some more text, hey hey!`);
 
             it("then it should have the right headline", () => expect(portfolio.headline.trim()).to.equal(heading.trim()));
             
-            it("then it should not have a summary", () => expect(portfolio.summary).to.be.null);
+            it("then it should have the right summary", () => expect(portfolio.summary.trim()).to.equal(summary.trim()));
 
             it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
         });

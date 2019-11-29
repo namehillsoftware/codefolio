@@ -76,7 +76,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 
         let remainingElements = skip(skipUntil(markdown.children, (item) => item === headlineParent), 1);
 
-        const subheadingCandidate = Array.from(take(remainingElements, 1)).filter(c => ["heading"].includes(c.type));
+        const subheadingCandidate = Array.from(take(remainingElements, 1)).filter(c => ["heading", "paragraph"].includes(c.type));
 
         const subheadingParent = subheadingCandidate.length > 0 ? <Parent>subheadingCandidate[0] : null;
         const subheading: Parent = subheadingParent
@@ -84,7 +84,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
             : null;
 
         if (subheadingParent)
-            remainingElements = skip(skipUntil(remainingElements, item => item === subheadingParent), 1);
+            remainingElements = skip(remainingElements, 1);
 
         const bodyContent = takeUntil(remainingElements, isLevelOneHeading);
 
