@@ -14,13 +14,17 @@ interface ITest<T> {
 }
 
 function skip<T>(items: Iterable<T>, count: number) {
-    let skipped = 0;
-    return skipUntil(items, () => skipped++ >= count);
+    return {
+        *[Symbol.iterator]() {
+            let skipped = 0;
+            yield* skipUntil(items, () => skipped++ >= count);
+        }
+    };
 }
 
 function skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
     return {
-        [Symbol.iterator]: function* () {
+        *[Symbol.iterator]() {
             let firstHit = false;
             for (const item of items) {
                 if (!firstHit) {
@@ -36,13 +40,17 @@ function skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 }
 
 function take<T>(items: Iterable<T>, count: number) {
-    let taken = 0;
-    return takeUntil(items, () => taken++ >= count);
+    return {
+        *[Symbol.iterator]() {
+            let taken = 0;
+            yield* takeUntil(items, () => taken++ >= count);
+        }
+    };
 }
 
 function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
     return {
-        [Symbol.iterator]: function* () {
+        *[Symbol.iterator]() {
             for (const item of items) {
                 if (predicate(item)) return;
                 yield item;
@@ -67,16 +75,16 @@ export default class ProjectTextProcessor implements IProcessProjectText {
         };
 
         let remainingElements = skip(skipUntil(markdown.children, (item) => item === headlineParent), 1);
-        
-        const subheadingCandidate = take(remainingElements, 1);
 
-        const subheadingParent = [...subheadingCandidate].filter(c => ["heading"].includes(c.type))[0] as Parent;
+        const subheadingCandidate = Array.from(take(remainingElements, 1)).filter(c => ["heading"].includes(c.type));
+
+        const subheadingParent = subheadingCandidate.length > 0 ? <Parent>subheadingCandidate[0] : null;
         const subheading: Parent = subheadingParent
             ? { type: "paragraph", children: subheadingParent.children }
             : null;
 
         if (subheadingParent)
-            remainingElements = skip(remainingElements, 2);
+            remainingElements = skip(skipUntil(remainingElements, item => item === subheadingParent), 1);
 
         const bodyContent = takeUntil(remainingElements, isLevelOneHeading);
 
@@ -88,7 +96,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
         return {
             headline: markdownProcessor.stringify(headline),
             body: markdownProcessor.stringify(bodyNode),
-            summary: markdownProcessor.stringify(subheading),
+            summary: subheading != null ? markdownProcessor.stringify(subheading) : null,
             imageLocation: ""
         }
     }
