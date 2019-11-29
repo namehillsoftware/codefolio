@@ -36,7 +36,7 @@ function skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
                 yield item;
             }
         }
-    }
+    };
 }
 
 function take<T>(items: Iterable<T>, count: number) {
@@ -56,7 +56,14 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
                 yield item;
             }
         }
-    }
+    };
+}
+
+function firstOrDefault<T>(items: Iterable<T>, predicate?: ITest<T>) {
+    let results = Array.from(take(items, 1));
+    if (predicate)
+        results = results.filter(predicate);
+    return results.length > 0 ? results[0] : null;
 }
 
 function isLevelOneHeading(node: Node) {
@@ -67,31 +74,30 @@ export default class ProjectTextProcessor implements IProcessProjectText {
     processProjectText(text: string): Portfolio {
         const markdown = markdownProcessor.parse(vfile(text)) as Parent;
 
-        const headings = markdown.children.filter(isLevelOneHeading);
-        const headlineParent = headings.length > 0 ? <Parent>headings[0] : null
+        let remainingElements = skipUntil(markdown.children, isLevelOneHeading);
+        const headlineParent = firstOrDefault(remainingElements) as Parent;
         const headline: Parent = {
             type: "paragraph",
             children: headlineParent.children
         };
 
-        let remainingElements = skip(skipUntil(markdown.children, (item) => item === headlineParent), 1);
+        remainingElements = skip(remainingElements, 1);
 
-        const subheadingCandidate = Array.from(take(remainingElements, 1))
-            .filter(c => {
+        const subheadingParent = firstOrDefault(remainingElements,
+            c => {
                 switch (c.type) {
                     case "paragraph": return true;
                     case "heading":
                         return (<any>c).depth > 1;
                     default: return false;
                 }
-            });
+            }) as Parent;
 
-        const subheadingParent = subheadingCandidate.length > 0 ? <Parent>subheadingCandidate[0] : null;
         const subheading: Parent = subheadingParent
             ? { type: "paragraph", children: subheadingParent.children }
             : null;
 
-        if (subheadingParent)
+        if (subheading)
             remainingElements = skip(remainingElements, 1);
 
         const bodyContent = takeUntil(remainingElements, isLevelOneHeading);
@@ -104,8 +110,8 @@ export default class ProjectTextProcessor implements IProcessProjectText {
         return {
             headline: markdownProcessor.stringify(headline),
             body: markdownProcessor.stringify(bodyNode),
-            summary: subheading != null ? markdownProcessor.stringify(subheading) : null,
+            summary: subheading !== null ? markdownProcessor.stringify(subheading) : null,
             imageLocation: ""
-        }
+        };
     }
 }
