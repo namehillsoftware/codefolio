@@ -60,14 +60,18 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 }
 
 function firstOrDefault<T>(items: Iterable<T>, predicate?: ITest<T>) {
-    let results = Array.from(take(items, 1));
     if (predicate)
-        results = results.filter(predicate);
+        items = skipUntil(items, predicate);
+    let results = Array.from(take(items, 1));
     return results.length > 0 ? results[0] : null;
 }
 
 function isLevelOneHeading(node: Node) {
     return node.type === "heading" && (<any>node).depth === 1;
+}
+
+function isValidSubheading(node: Node) {
+    return node && (node.type === "paragraph" || (node.type === "heading" && (<any>node).depth > 1));
 }
 
 export default class ProjectTextProcessor implements IProcessProjectText {
@@ -83,18 +87,10 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 
         remainingElements = skip(remainingElements, 1);
 
-        const subheadingParent = firstOrDefault(remainingElements,
-            c => {
-                switch (c.type) {
-                    case "paragraph": return true;
-                    case "heading":
-                        return (<any>c).depth > 1;
-                    default: return false;
-                }
-            }) as Parent;
+        let subheadingCandidate = firstOrDefault(remainingElements) as Parent;
 
-        const subheading: Parent = subheadingParent
-            ? { type: "paragraph", children: subheadingParent.children }
+        const subheading: Parent = isValidSubheading(subheadingCandidate) 
+            ? { type: "paragraph", children: subheadingCandidate.children }
             : null;
 
         if (subheading)
