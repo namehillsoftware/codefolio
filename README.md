@@ -1,6 +1,6 @@
 # Codefolio
 
-Codefolio is a basic portfolio renderer for your git projects.
+Codefolio is a basic portfolio renderer for your projects.
 
 ## Why?
 

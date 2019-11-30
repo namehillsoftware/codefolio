@@ -1,4 +1,4 @@
-import Project from './Project'
+import Project from "./Project";
 
 export default interface ISupplyProjects {
     promiseProjects(): Promise<Project[]>;
