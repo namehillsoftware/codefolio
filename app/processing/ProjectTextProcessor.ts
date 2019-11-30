@@ -3,6 +3,7 @@ import markdown from 'remark-parse';
 import stringify from 'remark-stringify';
 import findNode from 'unist-util-find';
 import removeNode from 'unist-util-remove';
+import Image from "../Image";
 
 import IProcessProjectText from "./IProcessProjectText";
 import Portfolio from "../Portfolio";
@@ -105,16 +106,23 @@ export default class ProjectTextProcessor implements IProcessProjectText {
             children: bodyContent
         };
 
-        const image = findNode(bodyNode, node => node.type === "image") as any;
-        const imageLocation = image ? image.url : "";
+        const imageNode = findNode(bodyNode, node => node.type === "image") as any;
+        let image: Image = null;
+        if (imageNode) {
+            image = {
+                url: imageNode.url,
+                title: imageNode.title,
+                alt: imageNode.alt
+            };
 
-        if (image) removeNode(bodyNode, image);
-
+            removeNode(bodyNode, imageNode);
+        }
+        
         return {
             headline: markdownProcessor.stringify(headline),
             body: markdownProcessor.stringify(bodyNode),
             summary: subheading !== null ? markdownProcessor.stringify(subheading) : null,
-            imageLocation: imageLocation
+            image: image
         };
     }
 }

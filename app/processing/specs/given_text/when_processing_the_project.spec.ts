@@ -7,7 +7,7 @@ describe("given text", () => {
 
         const summary = `Some **great** stuff here`;
 
-        const image = `![Check out the image](./image.png)`;
+        const image = `![Check out the image](./image.png "A sweet title")`;
 
         const body =
 `Here's the **body** copy
@@ -58,6 +58,10 @@ Here's some more text, hey hey!`);
 
         it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
 
-        it("then it should have the right image", () => expect(portfolio.imageLocation.trim()).to.equal("./image.png"));
+        it("then it should have the right image", () => expect(portfolio.image).to.deep.equal({
+            url: "./image.png",
+            alt: "Check out the image",
+            title: "A sweet title"
+        }));
     });
 });
