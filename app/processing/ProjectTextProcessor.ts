@@ -1,6 +1,8 @@
 import unified from 'unified';
 import markdown from 'remark-parse';
-import stringify from 'remark-stringify'
+import stringify from 'remark-stringify';
+import findNode from 'unist-util-find';
+import removeNode from 'unist-util-remove';
 
 import IProcessProjectText from "./IProcessProjectText";
 import Portfolio from "../Portfolio";
@@ -96,18 +98,23 @@ export default class ProjectTextProcessor implements IProcessProjectText {
         if (subheading)
             remainingElements = skip(remainingElements, 1);
 
-        const bodyContent = takeUntil(remainingElements, isLevelOneHeading);
+        const bodyContent = Array.from(takeUntil(remainingElements, isLevelOneHeading));
 
         const bodyNode: Parent = {
             type: "root", 
-            children: [...bodyContent]
+            children: bodyContent
         };
+
+        const image = findNode(bodyNode, node => node.type === "image") as any;
+        const imageLocation = image ? image.url : "";
+
+        if (image) removeNode(bodyNode, image);
 
         return {
             headline: markdownProcessor.stringify(headline),
             body: markdownProcessor.stringify(bodyNode),
             summary: subheading !== null ? markdownProcessor.stringify(subheading) : null,
-            imageLocation: ""
+            imageLocation: imageLocation
         };
     }
 }

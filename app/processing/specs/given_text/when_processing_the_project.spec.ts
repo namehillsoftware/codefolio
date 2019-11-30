@@ -1,5 +1,5 @@
 import ProjectTextProcessor from "../../ProjectTextProcessor";
-import 'chai/register-should';
+import { expect } from 'chai';
 
 describe("given text", () => {
     describe("when processing the project", () => {
@@ -7,11 +7,15 @@ describe("given text", () => {
 
         const summary = `Some **great** stuff here`;
 
+        const image = `![Check out the image](./image.png)`;
+
         const body =
 `Here's the **body** copy
 
 - Here's a bulleted list
 - With another bullet item
+
+![Here's another image](./contributing.png)
 
 ## And here's a subsection
 
@@ -23,7 +27,7 @@ describe("given text", () => {
 
 ###### 6
 
-And some more text, _la-di-da-di-da_`
+And some more text, _la-di-da-di-da_`;
 
         const projectTestProcessor = new ProjectTextProcessor();
         const portfolio = projectTestProcessor.processProjectText(
@@ -36,20 +40,24 @@ Some more random **text**.
 
 ## ${summary}
 
+${image}
 
 ${body}
 
-
 # Contributing
+
+![Here's another image](./contributing.png)
 
 # And another headline 
 
 Here's some more text, hey hey!`);
 
-        it("then it should have the right headline", () => portfolio.headline.trim().should.equal(heading.trim()));
+        it("then it should have the right headline", () => expect(portfolio.headline.trim()).to.equal(heading.trim()));
         
-        it("then it should have the right summary", () => portfolio.summary.trim().should.equal(summary.trim()));
+        it("then it should have the right summary", () => expect(portfolio.summary.trim()).to.equal(summary.trim()));
 
-        it("then it should have the right body", () => portfolio.body.trim().should.equal(body.trim()));
+        it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
+
+        it("then it should have the right image", () => expect(portfolio.imageLocation.trim()).to.equal("./image.png"));
     });
 });
