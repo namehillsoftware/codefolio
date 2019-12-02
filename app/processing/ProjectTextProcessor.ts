@@ -3,6 +3,7 @@ import markdown from "remark-parse";
 import stringify from "remark-stringify";
 import findNode from "unist-util-find";
 import removeNode from "unist-util-remove";
+import compactNodes from "mdast-util-compact";
 import Image from "../Image";
 
 import IProcessProjectText from "./IProcessProjectText";
@@ -115,8 +116,10 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 				alt: imageNode.alt
 			};
 
-			removeNode(bodyNode, imageNode);
+			removeNode(bodyNode, { cascade: false }, imageNode);
 		}
+
+		compactNodes(bodyNode);
 
 		return {
 			headline: markdownProcessor.stringify(headline),
