@@ -9,18 +9,18 @@ import ProjectTextProcessor from "../../processing/ProjectTextProcessor";
 describe("Given a set of projects", () => {
 	const projectSupplier : ISupplyProjectText = {
 		promiseProjectText: () => Promise.resolve([
-			`# A happy repo
+`# A happy repo
 
-			This is a happy repo
+This is a happy repo
 
-			In here, everyone is happier
+In here, everyone is happier
 
-			![](happy.png)`,
-			`# A happier repo
+![Happy](happy.png)`,
+`# A happier repo
 
-			This repo is even happier than the one above!
+This repo is even happier than the one above!
 
-			![](happier.png)`
+![Happier](happier.png)`
 		])
 	};
 
@@ -31,12 +31,12 @@ describe("Given a set of projects", () => {
 		it("it returns an array of portfolios", async () => expect(await promisedPortfolios).to.deep.equal([{
 			headline: "A happy repo",
 			summary: "This is a happy repo",
-			body: "In here, everyone is happier",
-			image: { url: "happy.png" }
+			body: "In here, everyone is happier\n",
+			image: { alt: "Happy", title: null, url: "happy.png" }
 		}, {
 			headline: "A happier repo",
 			summary: "This repo is even happier than the one above!",
-			image: { url: "happier.png" }
+			image: { alt: "Happier", title: null, url: "happier.png" }
 		}]));
 	});
 });
