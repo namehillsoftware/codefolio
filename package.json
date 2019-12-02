@@ -4,7 +4,7 @@
   "description": "A tool to help you show off your projects",
   "main": "index.js",
   "dependencies": {
-    "mdast-util-compact": "^2.0.0",
+    "mdast-squeeze-paragraphs": "^3.0.5",
     "mdast-util-phrasing": "^1.0.3",
     "remark-parse": "^7.0.2",
     "remark-stringify": "^7.0.4",

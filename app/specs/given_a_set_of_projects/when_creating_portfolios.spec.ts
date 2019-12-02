@@ -28,7 +28,7 @@ This repo is even happier than the one above!
 		it("it returns an array of portfolios", async () => expect(await promisedPortfolios).to.deep.equal([{
 			headline: "A happy repo",
 			summary: "This is a happy repo",
-			body: "In here, everyone is happier\n\n",
+			body: "In here, everyone is happier\n",
 			image: { alt: "Happy", title: null, url: "happy.png" }
 		}, {
 			headline: "A happier repo",

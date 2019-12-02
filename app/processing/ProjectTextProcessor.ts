@@ -3,7 +3,7 @@ import markdown from "remark-parse";
 import stringify from "remark-stringify";
 import findNode from "unist-util-find";
 import removeNode from "unist-util-remove";
-import compactNodes from "mdast-util-compact";
+import squeezeParagraphs from "mdast-squeeze-paragraphs";
 import Image from "../Image";
 
 import IProcessProjectText from "./IProcessProjectText";
@@ -119,7 +119,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 			removeNode(bodyNode, { cascade: false }, imageNode);
 		}
 
-		compactNodes(bodyNode);
+		squeezeParagraphs(bodyNode);
 
 		return {
 			headline: markdownProcessor.stringify(headline),
