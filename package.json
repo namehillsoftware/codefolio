@@ -27,7 +27,7 @@
     "typescript": "^3.7.2"
   },
   "scripts": {
-	"lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "test": "ts-mocha --recursive ./app/**/*.spec.ts"
   },
   "author": "David Vedvick (dvedvick@gmail.com)",

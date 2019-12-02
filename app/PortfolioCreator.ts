@@ -1,14 +1,13 @@
 import Portfolio from "./Portfolio";
-import ISupplyProjects from "./ISupplyProjects";
+import ISupplyProjectText from "./ISupplyProjectText";
+import IProcessProjectText from "./processing/IProcessProjectText";
+import Project from "./Project";
 
 export default class {
-	constructor(private readonly projectSupplier: ISupplyProjects) {}
+	constructor(private readonly projectSupplier: ISupplyProjectText, private readonly projectTextProcessor: IProcessProjectText) {}
 
 	async promisePortfolios(): Promise<Portfolio[]> {
-		return [{
-			headline: "something",
-			body: "hi",
-			image: { url: "img.jpg" }
-		}];
+		const projects = await this.projectSupplier.promiseProjectText();
+		return projects.map(this.projectTextProcessor.processProjectText);
 	}
 }
