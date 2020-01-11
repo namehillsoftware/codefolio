@@ -4,7 +4,7 @@ Codefolio is a basic portfolio renderer for your projects.
 
 ## Why?
 
-Codefolio fulfills a niche need: developers will often have many side projects, and they want to display them (oustide of a 3rd party context such as Github). Often, the challenge in displaying those projects is in keeping the projects updated.
+Codefolio fulfills a niche need: developers often have many side projects, and they want to display them (oustide of a 3rd party context such as Github). The challenge in displaying those projects is in keeping the projects updated.
 
 ## How?
 

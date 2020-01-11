@@ -1,11 +1,11 @@
-import ISupplyProjectText from "../../ISupplyProjectText";
+import ISupplyProjectText from "../../supply/ISupplyProjectText";
 import PortfolioCreator from "../../PortfolioCreator";
 import { expect } from "chai";
 import ProjectTextProcessor from "../../processing/ProjectTextProcessor";
 
 describe("Given a set of projects", () => {
 	const projectSupplier : ISupplyProjectText = {
-		promiseProjectText: () => Promise.resolve([
+		promiseProjectTexts: () => Promise.resolve([
 			`# A happy repo
 
 This is a happy repo
@@ -24,7 +24,7 @@ This repo is even happier than the one above!
 	const portfolioCreator = new PortfolioCreator(projectSupplier, new ProjectTextProcessor());
 
 	describe("When creating portfolios", async () => {
-		const promisedPortfolios = portfolioCreator.promisePortfolios();
+		const promisedPortfolios = portfolioCreator.promisePortfolios([]);
 		it("it returns an array of portfolios", async () => expect(await promisedPortfolios).to.deep.equal([{
 			headline: "A happy repo",
 			summary: "This is a happy repo",
