@@ -3,7 +3,7 @@ import ReadmeFileTextFeed from "../../ReadmeFileTextFeed";
 import IGetDirectoryFiles from "../../../resources/IGetDirectoryFiles";
 import IReadFiles from "../../../resources/IReadFiles";
 
-describe("Given repositories", () => {
+describe("Given other repositories", () => {
 	describe("When reading project text", () => {
 		const directoryReader: IGetDirectoryFiles = {
 			promiseDirectoryFiles: (directory: string) => {
@@ -27,13 +27,17 @@ describe("Given repositories", () => {
 		};
 
 		const textReader: IReadFiles = {
-			readFile: () => {
-				return Promise.resolve("The best text ever");
+			readFile: (file) => {
+				switch(file) {
+				case "MyBestProject\\Readme.md": return Promise.resolve("The best text ever");
+				case "AnotherProject\\Over\\Here\\Readme.md": return Promise.resolve("The other project also has wonderful text");
+				default: return Promise.resolve("");
+				}
 			}
 		};
 
 		const projectReader = new ReadmeFileTextFeed(directoryReader, textReader);
-		it("returns the project text", async () => expect(await projectReader.promiseProjectTexts([])).to.deep.equal([
+		it("returns the project text", async () => expect(await projectReader.promiseProjectTexts(["MyBestProject", "AnotherProject\\Over\\Here"])).to.deep.equal([
 			"The best text ever",
 			"The other project also has wonderful text"
 		]));
