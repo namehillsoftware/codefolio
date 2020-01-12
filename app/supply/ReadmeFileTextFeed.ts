@@ -9,7 +9,7 @@ export default class ReadmeFileTextFeed implements ISupplyProjectText {
 
 	async promiseProjectTexts(repositories: string[]): Promise<string[]> {
 		const projectTexts = await Promise.all(repositories.map(r => this.eventuallyGetReadmeText(r)));
-		return projectTexts;
+		return projectTexts.filter(t => t !== null);
 	}
 
 	private async eventuallyGetReadmeText(repository: string): Promise<string> {
@@ -17,8 +17,10 @@ export default class ReadmeFileTextFeed implements ISupplyProjectText {
 		const readMeFile = files.find(f => {
 			const segments = f.split(splitRegex);
 			const lastSegment = segments[segments.length - 1];
-			return lastSegment.toLowerCase() == "readme.md";
+			return lastSegment.toLowerCase() === "readme.md";
 		});
-		return this.fileText.readFile(readMeFile);
+		return readMeFile
+			? this.fileText.readFile(readMeFile)
+			: null;
 	}
 }
