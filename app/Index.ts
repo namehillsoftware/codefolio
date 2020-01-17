@@ -9,6 +9,6 @@ const portfolioCreator = new PortfolioCreator(
 	new ReadmeFileTextFeed(new DirectoryReader(), new FileReader()),
 	new ProjectTextProcessor());
 
-export default function(projects: string[]): Promise<Portfolio[]> {
+export function promisePortfolios(projects: string[]): Promise<Portfolio[]> {
 	return portfolioCreator.promisePortfolios(projects);
 }
