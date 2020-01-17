@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "A tool to help you show off your projects",
   "main": "./dist/index.js",
+  "type": "commonjs",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "mdast-squeeze-paragraphs": "^3.0.5",
     "mdast-util-phrasing": "^1.0.3",
