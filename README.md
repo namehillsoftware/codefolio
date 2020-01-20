@@ -4,7 +4,7 @@ Codefolio is a basic portfolio renderer for your projects.
 
 ## Why?
 
-Codefolio fulfills a niche need: developers often have many side projects, and they want to display them (oustide of a 3rd party context such as Github). The challenge in displaying those projects is in keeping the projects updated.
+Codefolio fulfills a niche need: developers often have many side projects, and they want to display them (outside of a 3rd party context such as Github). The challenge in displaying those projects is in keeping the projects updated.
 
 ## How?
 
@@ -27,3 +27,5 @@ const portfolios = await portfolio.promisePortfolios('https://github.com/namehil
 ```
 
 # Contributing
+
+Contributions to Codefolio are welcome. All pull requests must pass the automatic checks - and must be approved by the maintainer of the project. Please file issues and make feature requests through the issues UI at Github.
