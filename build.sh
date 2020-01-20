@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker-compose run package-build
+docker-compose up --build --force-recreate --abort-on-container-exit
