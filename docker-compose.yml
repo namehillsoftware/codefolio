@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  package-build:
+    build: .
+    entrypoint: npm run build
+    volumes:
+      - ./:/src
