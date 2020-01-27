@@ -21,7 +21,7 @@ Portfolio outputs a set of Markdown documents into a normalized array of `Portfo
 ```javascript
 import portfolio from 'portfolio'
 
-const portfolios = await portfolio.promisePortfolios('https://github.com/namehillsoftware/projectBlue.git');
+const portfolios = await portfolio.promisePortfolios('./sandbox/codefolio');
 
 // Do things with portfolios...
 ```

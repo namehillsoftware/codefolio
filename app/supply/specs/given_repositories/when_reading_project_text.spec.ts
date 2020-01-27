@@ -17,7 +17,7 @@ describe("Given repositories", () => {
 				case "AnotherProject\\Over\\Here": return Promise.resolve([
 					"AnotherProject\\Over\\Here\\file_1.txt",
 					"",
-					"AnotherProject\\Over\\Here\\Readme.md",
+					"AnotherProject\\Over\\Here\\Readme.markDOWN",
 					"AnotherProject\\Over\\Here\\other_stuff",
 					"AnotherProject\\Over\\Here\\AnotherFile.cs",
 					"AnotherProject\\Over\\Here\\SomeOtherStuff.js",
@@ -26,7 +26,7 @@ describe("Given repositories", () => {
 					"someStuff.txt",
 					"a/nother/path/here.txt",
 					"switch\\paths\\why\\not.jsmap",
-					"rEADME.md"
+					"rEADME"
 				]);
 				case "Project/Without/Readme": return Promise.resolve([
 					"Project/Without/Readme/someStuff.txt",
@@ -45,8 +45,8 @@ describe("Given repositories", () => {
 			readFile: (file) => {
 				switch(file) {
 				case "MyBestProject/Readme.md": return Promise.resolve("The best text ever");
-				case "AnotherProject\\Over\\Here\\Readme.md": return Promise.resolve("The other project also has wonderful text");
-				case "rEADME.md": return Promise.resolve("This is a root readme file");
+				case "AnotherProject\\Over\\Here\\Readme.markDOWN": return Promise.resolve("The other project also has wonderful text");
+				case "rEADME": return Promise.resolve("This is a root readme file");
 				default: return Promise.resolve("");
 				}
 			}

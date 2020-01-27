@@ -16,8 +16,10 @@ export default class ReadmeFileTextFeed implements ISupplyProjectText {
 		const files = await this.directoryFiles.promiseDirectoryFiles(repository);
 		const readMeFile = files.find(f => {
 			const segments = f.split(splitRegex);
-			const lastSegment = segments[segments.length - 1];
-			return lastSegment.toLowerCase() === "readme.md";
+			const lastSegment = segments[segments.length - 1].toLowerCase();
+			return lastSegment === "readme.md"
+				|| lastSegment === "readme.markdown"
+				|| lastSegment === "readme";
 		});
 		return readMeFile
 			? this.fileText.readFile(readMeFile)
