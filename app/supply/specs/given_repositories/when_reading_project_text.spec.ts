@@ -52,8 +52,15 @@ describe("Given repositories", () => {
 			}
 		};
 
+		const projects = [
+			"MyBestProject",
+			"AnotherProject\\Over\\Here",
+			"",
+			"Project/Without/Readme",
+		];
+
 		const projectReader = new ReadmeFileTextFeed(directoryReader, textReader);
-		it("returns the project text", async () => expect(await projectReader.promiseProjectTexts(["MyBestProject", "AnotherProject\\Over\\Here", "", "Project/Without/Readme"])).to.deep.equal([
+		it("returns the project text", async () => expect(await projectReader.promiseProjectTexts(projects)).to.deep.equal([
 			"The best text ever",
 			"The other project also has wonderful text",
 			"This is a root readme file"

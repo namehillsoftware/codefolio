@@ -1,5 +1,6 @@
-export default interface Project {
-    location: string;
-    bodyCopy?: string;
-    logo?: string;
+export default class Project {
+	constructor(
+		public readonly location: string,
+		public readonly bodyCopy: string = null,
+		public readonly logo: string = null) {}
 }

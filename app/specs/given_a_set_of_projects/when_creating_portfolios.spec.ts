@@ -2,6 +2,7 @@ import ISupplyProjectText from "../../supply/ISupplyProjectText";
 import PortfolioCreator from "../../PortfolioCreator";
 import { expect } from "chai";
 import ProjectTextProcessor from "../../processing/ProjectTextProcessor";
+import Project from "../../Project";
 
 describe("Given a set of projects", () => {
 	const projectSupplier : ISupplyProjectText = {
@@ -21,10 +22,20 @@ This repo is even happier than the one above!
 		])
 	};
 
+	const configuredProject: Project = {
+		location: "AVery\\Special//Project",
+		bodyCopy: "AVery\\Special//Project\\Description.markdown",
+	};
+
+	const projects = [
+		"",
+		configuredProject
+	];
+
 	const portfolioCreator = new PortfolioCreator(projectSupplier, new ProjectTextProcessor());
 
 	describe("When creating portfolios", async () => {
-		const promisedPortfolios = portfolioCreator.promisePortfolios([]);
+		const promisedPortfolios = portfolioCreator.promisePortfolios(projects);
 		it("it returns an array of portfolios", async () => expect(await promisedPortfolios).to.deep.equal([{
 			headline: "A happy repo",
 			summary: "This is a happy repo",
