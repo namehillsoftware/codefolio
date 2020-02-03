@@ -60,10 +60,12 @@ describe("Given repositories", () => {
 		];
 
 		const projectReader = new ReadmeFileTextFeed(directoryReader, textReader);
-		it("returns the project text", async () => expect(await projectReader.promiseProjectTexts(projects)).to.deep.equal([
+		const projectTexts = Promise.all(projects.map(p => projectReader.promiseProjectText(p)));
+		it("returns the project text", async () => expect(await projectTexts).to.deep.equal([
 			"The best text ever",
 			"The other project also has wonderful text",
-			"This is a root readme file"
+			"This is a root readme file",
+			null
 		]));
 	});
 });

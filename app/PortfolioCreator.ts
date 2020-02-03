@@ -10,18 +10,33 @@ export default class {
 		private readonly projectTextProcessor: IProcessProjectText) {}
 
 	async promisePortfolios(repositories: (string | Project)[]): Promise<Portfolio[]> {
-		const projectLocations = repositories
+		const unconventionalProjects = repositories
+			.filter(r => !(r instanceof String) && r)
+			.map(r => r as Project);
+
+		const promisedPortfolios = repositories
 			.filter(r => r instanceof String)
 			.map(r => r as string)
-			.concat(repositories
-				.filter(r => r instanceof Project)
-				.map(r => r as Project)
-				.map(p => path.join(p.location, p.bodyCopy)));
+			.map(async l => {
+				const text = await this.projectSupplier.promiseProjectText(l);
+				return this.projectTextProcessor.processProjectText(text);
+			})
+			.concat(unconventionalProjects.map(async p => {
+				const location = p.bodyCopy
+					? path.join(p.location, p.bodyCopy)
+					: p.location;
+				const text = await this.projectSupplier.promiseProjectText(location);
+				const portfolio = this.projectTextProcessor.processProjectText(text);
 
-		const projects = await this.projectSupplier.promiseProjectTexts(projectLocations);
+				if (p.logo instanceof String) {
+					portfolio.image = {
+						url: path.join(p.location, p.logo as string)
+					};
+				}
 
-		const portfolios = projects.map(p => this.projectTextProcessor.processProjectText(p));
+				return portfolio;
+			}));
 
-		return portfolios;
+		return await Promise.all(promisedPortfolios);
 	}
 }
