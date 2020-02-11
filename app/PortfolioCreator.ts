@@ -5,7 +5,7 @@ import Project from "./Project";
 import path from "path";
 
 function isString(str: any): boolean {
-	return str && (typeof(str) === "string" || str instanceof String);
+	return typeof(str) === "string" || str instanceof String;
 }
 
 export default class {
@@ -32,7 +32,7 @@ export default class {
 				const text = await this.projectSupplier.promiseProjectText(location);
 				const portfolio = this.projectTextProcessor.processProjectText(text);
 
-				if (p.logo instanceof String) {
+				if (isString(p.logo)) {
 					portfolio.image = {
 						url: path.join(p.location, p.logo as string)
 					};

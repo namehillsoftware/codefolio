@@ -16,7 +16,7 @@ describe("Given a set of projects", () => {
 		},
 		{
 			location: logoProject,
-			image: "logo.png"
+			logo: "logo.png"
 		}
 	];
 
@@ -65,7 +65,7 @@ This repo is very unique
 			headline: "This Project Has Its Own Logo",
 			summary: "This repo is very unique",
 			body: "\n",
-			image: { alt: null, title: null, url: "logo.png" }
+			image: { url: "MyLogo/Project/logo.png" }
 		}]));
 	});
 });
