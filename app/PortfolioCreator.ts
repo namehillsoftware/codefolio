@@ -4,6 +4,10 @@ import IProcessProjectText from "./processing/IProcessProjectText";
 import Project from "./Project";
 import path from "path";
 
+function isString(str: any): boolean {
+	return str && (typeof(str) === "string" || str instanceof String);
+}
+
 export default class {
 	constructor(
 		private readonly projectSupplier: ISupplyProjectText,
@@ -11,11 +15,11 @@ export default class {
 
 	async promisePortfolios(repositories: (string | Project)[]): Promise<Portfolio[]> {
 		const unconventionalProjects = repositories
-			.filter(r => !(r instanceof String) && r)
+			.filter(r => r && !isString(r))
 			.map(r => r as Project);
 
 		const promisedPortfolios = repositories
-			.filter(r => r instanceof String)
+			.filter(r => isString(r))
 			.map(r => r as string)
 			.map(async l => {
 				const text = await this.projectSupplier.promiseProjectText(l);

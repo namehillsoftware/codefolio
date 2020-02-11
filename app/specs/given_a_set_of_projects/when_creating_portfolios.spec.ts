@@ -2,11 +2,26 @@ import ISupplyProjectText from "../../supply/ISupplyProjectText";
 import PortfolioCreator from "../../PortfolioCreator";
 import { expect } from "chai";
 import ProjectTextProcessor from "../../processing/ProjectTextProcessor";
+import path from "path";
 
 describe("Given a set of projects", () => {
+	const specialProjectLocation = path.join("AVery", "Special", "Project");
+	const logoProject = path.join("MyLogo", "Project");
+
+	const projects = [
+		"",
+		{
+			location: specialProjectLocation,
+			bodyCopy: "Description.markdown"
+		},
+		{
+			location: logoProject,
+			image: "logo.png"
+		}
+	];
+
 	const projectSupplier : ISupplyProjectText = {
 		promiseProjectText: (location) => {
-			console.log(location);
 			switch (location) {
 			case "":
 				return Promise.resolve(`# A happy repo
@@ -16,13 +31,13 @@ This is a happy repo
 In here, everyone is happier
 
 ![Happy](happy.png)`);
-			case "AVery\\Special/Project\\Description.markdown":
+			case path.join(specialProjectLocation, "Description.markdown"):
 				return Promise.resolve(`# A Very Special Project!
 
 This repo is even happier than the one above!
 
 ![Happier](happier.png)`);
-			case "MyLogo\\Project":
+			case logoProject:
 				return Promise.resolve(`# This Project Has Its Own Logo
 
 This repo is very unique
@@ -31,18 +46,6 @@ This repo is very unique
 			}
 		}
 	};
-
-	const projects = [
-		"",
-		{
-			location: "AVery\\Special/Project",
-			bodyCopy: "Description.markdown"
-		},
-		{
-			location: "MyLogo\\Project",
-			image: "logo.png"
-		}
-	];
 
 	const portfolioCreator = new PortfolioCreator(projectSupplier, new ProjectTextProcessor());
 
