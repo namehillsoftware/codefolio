@@ -22,10 +22,7 @@ export default class {
 		const promisedPortfolios = repositories
 			.filter(r => isString(r))
 			.map(r => r as string)
-			.map(async l => {
-				const text = await this.projectSupplier.promiseProjectText(l);
-				return this.projectTextProcessor.processProjectText(text);
-			})
+			.map(async l => this.fetchAndParseProjectText(l))
 			.concat(unconventionalProjects.map(p => this.handleUnconventionalProject(p)));
 
 		return await Promise.all(promisedPortfolios);
@@ -35,8 +32,8 @@ export default class {
 		const location = project.bodyCopy
 			? path.join(project.location, project.bodyCopy)
 			: project.location;
-		const text = await this.projectSupplier.promiseProjectText(location);
-		const portfolio = this.projectTextProcessor.processProjectText(text);
+
+		const portfolio = await this.fetchAndParseProjectText(location);
 
 		if (isString(project.logo)) {
 			portfolio.image = {
@@ -54,5 +51,10 @@ export default class {
 		}
 
 		return portfolio;
+	}
+
+	private async fetchAndParseProjectText(location: string): Promise<Portfolio> {
+		const text = await this.projectSupplier.promiseProjectText(location);
+		return this.projectTextProcessor.processProjectText(text);
 	}
 }
