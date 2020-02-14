@@ -42,9 +42,10 @@ export default class {
 			portfolio.image = {
 				url: path.join(project.location, project.logo as string)
 			};
-		} else if (project.logo) {
-			const logo = project.logo as Image;
+		}
 
+		const logo = project.logo as Image;
+		if (logo.url) {
 			portfolio.image = {
 				url: path.join(project.location, logo.url),
 				alt: logo.alt,
