@@ -7,6 +7,8 @@ import path from "path";
 describe("Given a set of projects", () => {
 	const specialProjectLocation = path.join("AVery", "Special", "Project");
 	const logoProject = path.join("MyLogo", "Project");
+	const labelledLogoProject = path.join("Labelled", "Logos");
+	const labelledLogoLocation = path.join("resources", "jpg.jpg");
 
 	const projects = [
 		"",
@@ -17,6 +19,14 @@ describe("Given a set of projects", () => {
 		{
 			location: logoProject,
 			logo: "logo.png"
+		},
+		{
+			location:  labelledLogoProject,
+			logo: {
+				url: labelledLogoLocation,
+				alt: "Alternate",
+				title: "Titillating"
+			}
 		}
 	];
 
@@ -43,6 +53,14 @@ This repo is even happier than the one above!
 This repo is very unique
 
 ![Happier](the-best-logo.png)`);
+			case labelledLogoProject:
+				return Promise.resolve(`# The Labelled Logos!!
+
+Here's some wild text my friend
+
+What a great project this is, with the labelled logos and everything.
+
+![Some stuff](this-is-a-great-logo.png)`);
 			}
 		}
 	};
@@ -66,6 +84,15 @@ This repo is very unique
 			summary: "This repo is very unique",
 			body: "\n",
 			image: { url: "MyLogo/Project/logo.png" }
+		}, {
+			headline: "The Labelled Logos!!",
+			summary: "Here's some wild text my friend",
+			body: "What a great project this is, with the labelled logos and everything.\n",
+			image: {
+				url: path.join(labelledLogoProject, labelledLogoLocation),
+				alt: "Alternate",
+				title: "Titillating"
+			}
 		}]));
 	});
 });

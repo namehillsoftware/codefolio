@@ -3,6 +3,7 @@ import ISupplyProjectText from "./supply/ISupplyProjectText";
 import IProcessProjectText from "./processing/IProcessProjectText";
 import Project from "./Project";
 import path from "path";
+import Image from "./Image";
 
 function isString(str: any): boolean {
 	return typeof(str) === "string" || str instanceof String;
@@ -25,22 +26,32 @@ export default class {
 				const text = await this.projectSupplier.promiseProjectText(l);
 				return this.projectTextProcessor.processProjectText(text);
 			})
-			.concat(unconventionalProjects.map(async p => {
-				const location = p.bodyCopy
-					? path.join(p.location, p.bodyCopy)
-					: p.location;
-				const text = await this.projectSupplier.promiseProjectText(location);
-				const portfolio = this.projectTextProcessor.processProjectText(text);
-
-				if (isString(p.logo)) {
-					portfolio.image = {
-						url: path.join(p.location, p.logo as string)
-					};
-				}
-
-				return portfolio;
-			}));
+			.concat(unconventionalProjects.map(p => this.handleUnconventionalProject(p)));
 
 		return await Promise.all(promisedPortfolios);
+	}
+
+	private async handleUnconventionalProject(project: Project): Promise<Portfolio> {
+		const location = project.bodyCopy
+			? path.join(project.location, project.bodyCopy)
+			: project.location;
+		const text = await this.projectSupplier.promiseProjectText(location);
+		const portfolio = this.projectTextProcessor.processProjectText(text);
+
+		if (isString(project.logo)) {
+			portfolio.image = {
+				url: path.join(project.location, project.logo as string)
+			};
+		} else if (project.logo) {
+			const logo = project.logo as Image;
+
+			portfolio.image = {
+				url: path.join(project.location, logo.url),
+				alt: logo.alt,
+				title: logo.title
+			};
+		}
+
+		return portfolio;
 	}
 }
