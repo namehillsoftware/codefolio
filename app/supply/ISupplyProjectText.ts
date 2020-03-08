@@ -1,3 +1,3 @@
 export default interface ISupplyProjectText {
-    promiseProjectTexts(repositories: string[]): Promise<string[]>;
+    promiseProjectText(repository: string): Promise<string>;
 }

@@ -1,5 +1,7 @@
+import Image from "./Image";
+
 export default interface Project {
-    location: string;
-    bodyCopy?: string;
-    logo?: string;
+	location: string;
+	bodyCopy?: string;
+	logo?: string | Image;
 }
