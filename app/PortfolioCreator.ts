@@ -14,7 +14,7 @@ export default class {
 		private readonly projectSupplier: ISupplyProjectText,
 		private readonly projectTextProcessor: IProcessProjectText) {}
 
-	async promisePortfolios(repositories: (string | Project)[]): Promise<Portfolio[]> {
+	promisePortfolios(repositories: (string | Project)[]): Promise<Portfolio[]> {
 		const unconventionalProjects = repositories
 			.filter(r => r && !isString(r))
 			.map(r => r as Project);
@@ -25,7 +25,7 @@ export default class {
 			.map(async l => this.fetchAndParseProjectText(l))
 			.concat(unconventionalProjects.map(p => this.handleUnconventionalProject(p)));
 
-		return await Promise.all(promisedPortfolios);
+		return Promise.all(promisedPortfolios);
 	}
 
 	private async handleUnconventionalProject(project: Project): Promise<Portfolio> {

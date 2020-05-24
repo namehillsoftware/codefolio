@@ -1,6 +1,6 @@
 {
   "name": "codefolio",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A tool to help you show off your projects",
   "main": "./dist/index.js",
   "type": "commonjs",
@@ -31,9 +31,10 @@
   },
   "scripts": {
     "build": "npm install && npm run lint && tsc",
-    "prepare": "npm run build",
+	"prepublishOnly" : "npm test && npm run lint",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "ts-mocha --recursive ./app/**/*.spec.ts"
+	"test": "ts-mocha --recursive ./app/**/*.spec.ts",
+	"postversion" : "git push && git push --tags"
   },
   "author": "David Vedvick (dvedvick@gmail.com)",
   "license": "ISC"

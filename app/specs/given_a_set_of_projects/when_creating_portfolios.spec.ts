@@ -18,7 +18,15 @@ describe("Given a set of projects", () => {
 		},
 		{
 			location: logoProject,
-			logo: "logo.png"
+			logo: "logo.png",
+			examples: [
+				"example.png",
+				{
+					url: "working.gif",
+					alt: "It works!",
+					title: "Animated Working GIF"
+				}
+			]
 		},
 		{
 			location:  labelledLogoProject,
@@ -83,7 +91,14 @@ What a great project this is, with the labelled logos and everything.
 			headline: "This Project Has Its Own Logo",
 			summary: "This repo is very unique",
 			body: "\n",
-			image: { url: "MyLogo/Project/logo.png" }
+			image: { url: "MyLogo/Project/logo.png" },
+			examples: [{
+				url: "example.png"
+			}, {
+				url: "working.gif",
+				alt: "It works!",
+				title: "Animated Working GIF"
+			}]
 		}, {
 			headline: "The Labelled Logos!!",
 			summary: "Here's some wild text my friend",
