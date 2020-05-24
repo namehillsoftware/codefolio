@@ -9,6 +9,25 @@ function isString(str: any): boolean {
 	return typeof(str) === "string" || str instanceof String;
 }
 
+function parseImage(rootDir: string, inputImage?: string | Image): Image {
+	if (isString(inputImage)) {
+		return {
+			url: path.join(rootDir, inputImage as string)
+		};
+	}
+
+	const image = inputImage as Image;
+	if (image && image.url) {
+		return {
+			url: path.join(rootDir, image.url),
+			alt: image.alt,
+			title: image.title
+		};
+	}
+
+	return null;
+}
+
 export default class {
 	constructor(
 		private readonly projectSupplier: ISupplyProjectText,
@@ -35,20 +54,9 @@ export default class {
 
 		const portfolio = await this.fetchAndParseProjectText(location);
 
-		if (isString(project.logo)) {
-			portfolio.image = {
-				url: path.join(project.location, project.logo as string)
-			};
-		}
-
-		const logo = project.logo as Image;
-		if (logo && logo.url) {
-			portfolio.image = {
-				url: path.join(project.location, logo.url),
-				alt: logo.alt,
-				title: logo.title
-			};
-		}
+		portfolio.image = parseImage(project.location, project.logo);
+		const examples = project.examples || [];
+		portfolio.examples = examples.map(e => parseImage(project.location, e));
 
 		return portfolio;
 	}
