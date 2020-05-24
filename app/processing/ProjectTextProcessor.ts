@@ -125,7 +125,8 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 			headline: markdownProcessor.stringify(headline),
 			body: markdownProcessor.stringify(bodyNode),
 			summary: subheading !== null ? markdownProcessor.stringify(subheading) : null,
-			image: image
+			image: image,
+			examples: [],
 		};
 	}
 }

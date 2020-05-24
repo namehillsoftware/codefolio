@@ -54,9 +54,14 @@ export default class {
 
 		const portfolio = await this.fetchAndParseProjectText(location);
 
-		portfolio.image = parseImage(project.location, project.logo);
+		const parsedImage = parseImage(project.location, project.logo);
+		if (parsedImage)
+			portfolio.image = parsedImage;
+
 		const examples = project.examples || [];
-		portfolio.examples = examples.map(e => parseImage(project.location, e));
+		portfolio.examples = examples
+			.map(e => parseImage(project.location, e))
+			.filter(e => e);
 
 		return portfolio;
 	}

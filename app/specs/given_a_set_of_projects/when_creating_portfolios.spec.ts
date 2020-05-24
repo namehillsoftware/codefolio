@@ -34,7 +34,8 @@ describe("Given a set of projects", () => {
 				url: labelledLogoLocation,
 				alt: "Alternate",
 				title: "Titillating"
-			}
+			},
+			examples: [ null ]
 		}
 	];
 
