@@ -41,7 +41,7 @@ export default class {
 		const promisedPortfolios = repositories
 			.filter(r => isString(r))
 			.map(r => r as string)
-			.map(async l => this.fetchAndParseProjectText(l))
+			.map(l => this.fetchAndParseProjectText(l))
 			.concat(unconventionalProjects.map(p => this.handleUnconventionalProject(p)));
 
 		return Promise.all(promisedPortfolios);

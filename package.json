@@ -31,10 +31,10 @@
   },
   "scripts": {
     "build": "npm install && npm run lint && tsc",
-	"prepublishOnly" : "npm test && npm run lint",
+    "prepublishOnly": "npm test && npm run lint",
     "lint": "eslint . --ext .ts,.tsx",
-	"test": "ts-mocha --recursive ./app/**/*.spec.ts",
-	"postversion" : "git push && git push --tags"
+    "test": "ts-mocha --recursive ./app/**/*.spec.ts",
+    "postversion": "git push && git push --tags"
   },
   "author": "David Vedvick (dvedvick@gmail.com)",
   "license": "ISC"
