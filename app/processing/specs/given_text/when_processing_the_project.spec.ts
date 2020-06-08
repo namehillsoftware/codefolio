@@ -9,15 +9,14 @@ describe("given text", () => {
 
 		const image = "![Check out the image](./image.png \"A sweet title\")";
 
-		const body =
+		const firstBodyHalf =
 `Here's the **body** copy
 
 - Here's a bulleted list
-- With another bullet item
+- With another bullet item`;
 
-![Here's another image](./contributing.png)
-
-## And here's a subsection
+		const secondBodyHalf =
+`## And here's a subsection
 
 ### Another
 
@@ -28,6 +27,13 @@ describe("given text", () => {
 ###### 6
 
 And some more text, _la-di-da-di-da_`;
+
+		const body =
+`${firstBodyHalf}
+
+![Here's another image](./contributing.png)
+
+${secondBodyHalf}`;
 
 		const projectTestProcessor = new ProjectTextProcessor();
 		const portfolio = projectTestProcessor.processProjectText(
@@ -56,7 +62,10 @@ Here's some more text, hey hey!`);
 
 		it("then it should have the right summary", () => expect(portfolio.summary.trim()).to.equal(summary.trim()));
 
-		it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
+		it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(
+			`${firstBodyHalf.trim()}
+
+${secondBodyHalf.trim()}`));
 
 		it("then it should have the right image", () => expect(portfolio.image).to.deep.equal({
 			url: "./image.png",

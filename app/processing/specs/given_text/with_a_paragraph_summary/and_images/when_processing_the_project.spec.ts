@@ -55,7 +55,7 @@ Here's some more text, hey hey!`);
 					title: null
 				}));
 
-				it("then it should have the fancy example", () => expect(portfolio.examples[0]).to.deep.equal({
+				it("then it should have the fancy example", () => expect(portfolio.examples[1]).to.deep.equal({
 					url: "fancy.png",
 					alt: "Fancy Example",
 					title: null
