@@ -18,7 +18,15 @@ describe("Given a set of projects", () => {
 		},
 		{
 			location: logoProject,
-			logo: "logo.png"
+			logo: "logo.png",
+			examples: [
+				"example.png",
+				{
+					url: "working.gif",
+					alt: "It works!",
+					title: "Animated Working GIF"
+				}
+			]
 		},
 		{
 			location:  labelledLogoProject,
@@ -26,7 +34,8 @@ describe("Given a set of projects", () => {
 				url: labelledLogoLocation,
 				alt: "Alternate",
 				title: "Titillating"
-			}
+			},
+			examples: [ null ]
 		}
 	];
 
@@ -73,17 +82,26 @@ What a great project this is, with the labelled logos and everything.
 			headline: "A happy repo",
 			summary: "This is a happy repo",
 			body: "In here, everyone is happier\n",
-			image: { alt: "Happy", title: null, url: "happy.png" }
+			image: { alt: "Happy", title: null, url: "happy.png" },
+			examples: []
 		}, {
 			headline: "A Very Special Project!",
 			summary: "This repo is even happier than the one above!",
 			body: "\n",
-			image: { alt: "Happier", title: null, url: "happier.png" }
+			image: { alt: "Happier", title: null, url: "happier.png" },
+			examples: []
 		}, {
 			headline: "This Project Has Its Own Logo",
 			summary: "This repo is very unique",
 			body: "\n",
-			image: { url: "MyLogo/Project/logo.png" }
+			image: { url: "MyLogo/Project/logo.png" },
+			examples: [{
+				url: "MyLogo/Project/example.png"
+			}, {
+				url: "MyLogo/Project/working.gif",
+				alt: "It works!",
+				title: "Animated Working GIF"
+			}]
 		}, {
 			headline: "The Labelled Logos!!",
 			summary: "Here's some wild text my friend",
@@ -92,7 +110,8 @@ What a great project this is, with the labelled logos and everything.
 				url: path.join(labelledLogoProject, labelledLogoLocation),
 				alt: "Alternate",
 				title: "Titillating"
-			}
+			},
+			examples: []
 		}]));
 	});
 });

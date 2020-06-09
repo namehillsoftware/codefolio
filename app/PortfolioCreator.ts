@@ -9,12 +9,31 @@ function isString(str: any): boolean {
 	return typeof(str) === "string" || str instanceof String;
 }
 
+function parseImage(rootDir: string, inputImage?: string | Image): Image {
+	if (isString(inputImage)) {
+		return {
+			url: path.join(rootDir, inputImage as string)
+		};
+	}
+
+	const image = inputImage as Image;
+	if (image && image.url) {
+		return {
+			url: path.join(rootDir, image.url),
+			alt: image.alt,
+			title: image.title
+		};
+	}
+
+	return null;
+}
+
 export default class {
 	constructor(
 		private readonly projectSupplier: ISupplyProjectText,
 		private readonly projectTextProcessor: IProcessProjectText) {}
 
-	async promisePortfolios(repositories: (string | Project)[]): Promise<Portfolio[]> {
+	promisePortfolios(repositories: (string | Project)[]): Promise<Portfolio[]> {
 		const unconventionalProjects = repositories
 			.filter(r => r && !isString(r))
 			.map(r => r as Project);
@@ -22,10 +41,10 @@ export default class {
 		const promisedPortfolios = repositories
 			.filter(r => isString(r))
 			.map(r => r as string)
-			.map(async l => this.fetchAndParseProjectText(l))
+			.map(l => this.fetchAndParseProjectText(l))
 			.concat(unconventionalProjects.map(p => this.handleUnconventionalProject(p)));
 
-		return await Promise.all(promisedPortfolios);
+		return Promise.all(promisedPortfolios);
 	}
 
 	private async handleUnconventionalProject(project: Project): Promise<Portfolio> {
@@ -35,20 +54,14 @@ export default class {
 
 		const portfolio = await this.fetchAndParseProjectText(location);
 
-		if (isString(project.logo)) {
-			portfolio.image = {
-				url: path.join(project.location, project.logo as string)
-			};
-		}
+		const parsedImage = parseImage(project.location, project.logo);
+		if (parsedImage)
+			portfolio.image = parsedImage;
 
-		const logo = project.logo as Image;
-		if (logo && logo.url) {
-			portfolio.image = {
-				url: path.join(project.location, logo.url),
-				alt: logo.alt,
-				title: logo.title
-			};
-		}
+		const examples = project.examples || [];
+		portfolio.examples = examples
+			.map(e => parseImage(project.location, e))
+			.filter(e => e);
 
 		return portfolio;
 	}

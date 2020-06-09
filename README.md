@@ -13,6 +13,7 @@ Codefolio aims to solve this problem by providing a convention for reading a bas
 - The first level one heading (`# Hi I'm a level one heading`) is the headline for the project
 - The text after that heading is the body, until the **next** level one heading is hit - not including any images
 - The first image before the second level one heading in the document is considered the logo for the project
+- All other images before the second level are used as example images
 
 # Example Usage
 

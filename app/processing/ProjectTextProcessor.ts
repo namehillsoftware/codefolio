@@ -78,6 +78,21 @@ function isValidSubheading(node: Node) {
 	return node && (node.type === "paragraph" || (node.type === "heading" && (<any>node).depth > 1));
 }
 
+function peelOffImage(bodyNode: Parent): Image {
+	const imageNode = findNode(bodyNode, node => node.type === "image") as any;
+	if (!imageNode) return null;
+
+	const image = {
+		url: imageNode.url,
+		title: imageNode.title,
+		alt: imageNode.alt
+	};
+
+	removeNode(bodyNode, { cascade: false }, imageNode);
+
+	return image;
+}
+
 export default class ProjectTextProcessor implements IProcessProjectText {
 	processProjectText(text: string): Portfolio {
 		const markdown = markdownProcessor.parse(vfile(text)) as Parent;
@@ -107,16 +122,12 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 			children: bodyContent
 		};
 
-		const imageNode = findNode(bodyNode, node => node.type === "image") as any;
-		let image: Image = null;
-		if (imageNode) {
-			image = {
-				url: imageNode.url,
-				title: imageNode.title,
-				alt: imageNode.alt
-			};
+		const headlineImage = peelOffImage(bodyNode);
 
-			removeNode(bodyNode, { cascade: false }, imageNode);
+		const examples = [];
+		let image: Image = null;
+		while ((image = peelOffImage(bodyNode)) != null) {
+			examples.push(image);
 		}
 
 		squeezeParagraphs(bodyNode);
@@ -125,7 +136,8 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 			headline: markdownProcessor.stringify(headline),
 			body: markdownProcessor.stringify(bodyNode),
 			summary: subheading !== null ? markdownProcessor.stringify(subheading) : null,
-			image: image
+			image: headlineImage,
+			examples: examples,
 		};
 	}
 }

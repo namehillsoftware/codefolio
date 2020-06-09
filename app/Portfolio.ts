@@ -4,5 +4,6 @@ export default interface Portfolio {
     headline: string;
     summary?: string;
     body: string;
-    image?: Image;
+	image?: Image;
+	examples: Image[];
 }
