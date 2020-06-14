@@ -2,9 +2,9 @@
   "name": "codefolio",
   "version": "0.2.3",
   "description": "A tool to help you show off your projects",
-  "main": "./dist/index.js",
+  "main": "./dist/Index.js",
   "type": "commonjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/Index.d.ts",
   "files": [
     "dist/**/*"
   ],
