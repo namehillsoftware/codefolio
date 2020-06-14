@@ -24,7 +24,7 @@ export default class ReadmeFileTextFeed implements ISupplyProjectText {
 				|| lastSegment === "readme.markdown"
 				|| lastSegment === "readme";
 		});
-		return this.readFileIfNotNull(readMeFile);
+		return await this.readFileIfNotNull(readMeFile);
 	}
 
 	private async readFileIfNotNull(filePath: string): Promise<string> {
