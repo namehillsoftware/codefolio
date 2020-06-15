@@ -1,11 +1,14 @@
-import fs from "fs";
+import { promises as fs } from "fs";
 import IGetDirectoryFiles from "./IGetDirectoryFiles";
-import { promisify } from "util";
+import ICheckIfPathsAreDirectories from "./ICheckIfPathsAreDirectories";
 
-const promisedDirs = promisify(fs.readdir);
+export default class DirectoryReader implements IGetDirectoryFiles, ICheckIfPathsAreDirectories {
+	async promiseIsDirectory(path: string): Promise<boolean> {
+		const statistics = await fs.lstat(path);
+		return statistics.isDirectory();
+	}
 
-export default class DirectoryReader implements IGetDirectoryFiles {
 	promiseDirectoryFiles(directory: string): Promise<string[]> {
-		return promisedDirs(directory);
+		return fs.readdir(directory);
 	}
 }

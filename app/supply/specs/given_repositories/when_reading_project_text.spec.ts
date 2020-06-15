@@ -2,9 +2,21 @@ import { expect } from "chai";
 import ReadmeFileTextFeed from "../../ReadmeFileTextFeed";
 import IGetDirectoryFiles from "../../../resources/IGetDirectoryFiles";
 import IReadFiles from "../../../resources/IReadFiles";
+import ICheckIfPathsAreDirectories from "../../../resources/ICheckIfPathsAreDirectories";
 
 describe("Given repositories", () => {
 	describe("When reading project text", () => {
+		const directoryChecker: ICheckIfPathsAreDirectories = {
+			promiseIsDirectory: (path: string) => {
+				switch(path) {
+				case "rockstar.md":
+					return Promise.resolve(false);
+				default:
+					return Promise.resolve(true);
+				}
+			}
+		};
+
 		const directoryReader: IGetDirectoryFiles = {
 			promiseDirectoryFiles: (directory: string) => {
 				switch(directory) {
@@ -47,6 +59,7 @@ describe("Given repositories", () => {
 				case "MyBestProject/Readme.md": return Promise.resolve("The best text ever");
 				case "AnotherProject\\Over\\Here\\Readme.markDOWN": return Promise.resolve("The other project also has wonderful text");
 				case "rEADME": return Promise.resolve("This is a root readme file");
+				case "rockstar.md": return Promise.resolve("Brilliant text!");
 				default: return Promise.resolve("");
 				}
 			}
@@ -57,15 +70,17 @@ describe("Given repositories", () => {
 			"AnotherProject\\Over\\Here",
 			"",
 			"Project/Without/Readme",
+			"rockstar.md"
 		];
 
-		const projectReader = new ReadmeFileTextFeed(directoryReader, textReader);
+		const projectReader = new ReadmeFileTextFeed(directoryChecker, directoryReader, textReader);
 		const projectTexts = Promise.all(projects.map(p => projectReader.promiseProjectText(p)));
 		it("returns the project text", async () => expect(await projectTexts).to.deep.equal([
 			"The best text ever",
 			"The other project also has wonderful text",
 			"This is a root readme file",
-			null
+			null,
+			"Brilliant text!"
 		]));
 	});
 });
