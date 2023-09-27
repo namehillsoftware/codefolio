@@ -17,7 +17,7 @@ Codefolio aims to solve this problem by providing a convention for reading a bas
 
 # Example Usage
 
-Portfolio outputs a set of Markdown documents into a normalized array of `Portfolio` objects.
+Portfolio takes as input a set of Markdown documents and outputs those documents into a normalized array of `Portfolio` objects.
 
 ```javascript
 import portfolio from 'portfolio'

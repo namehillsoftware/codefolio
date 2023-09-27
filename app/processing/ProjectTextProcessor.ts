@@ -66,7 +66,7 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 function firstOrDefault<T>(items: Iterable<T>, predicate?: ITest<T>) {
 	if (predicate)
 		items = skipUntil(items, predicate);
-	let results = Array.from(take(items, 1));
+	const results = Array.from(take(items, 1));
 	return results.length > 0 ? results[0] : null;
 }
 
@@ -75,7 +75,7 @@ function isLevelOneHeading(node: Node) {
 }
 
 function isValidSubheading(node: Node) {
-	return node && (node.type === "paragraph" || (node.type === "heading" && (<any>node).depth > 1));
+	return node && (node.type === "paragraph" || (node.type === "heading" && (<any>node).depth > 1)) && !findNode(node, n => n.type === "image");
 }
 
 function peelOffImage(bodyNode: Parent): Image {
