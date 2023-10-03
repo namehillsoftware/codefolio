@@ -5,7 +5,7 @@ describe("given text", () => {
 	describe("with a paragraph summary", () => {
 		describe("and images", () => {
 			describe("when processing the project", () => {
-				const heading = "    My _Fake_ Project";
+				const heading = "    My *Fake* Project";
 
 				const summary = " Wow this library **is** fantastic!";
 

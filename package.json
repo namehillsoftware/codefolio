@@ -1,44 +1,48 @@
 {
-  "name": "codefolio",
-  "version": "0.2.6",
-  "description": "A tool to help you show off your projects",
-  "main": "./dist/Index.js",
-  "type": "commonjs",
-  "types": "./dist/Index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "dependencies": {
-    "mdast-squeeze-paragraphs": "^3.0.5",
-    "mdast-util-phrasing": "^1.0.3",
-    "remark-parse": "^7.0.2",
-    "remark-stringify": "^7.0.4",
-    "unified": "^8.4.2",
-    "unified-stream": "^1.0.5",
-    "unist-util-find": "^1.0.1",
-    "unist-util-remove": "^1.0.3"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.2.5",
-    "@types/node": "^12.12.9",
-    "@types/unist": "^2.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.9.0",
-    "@typescript-eslint/parser": "^2.9.0",
-    "chai": "^4.2.0",
-    "eslint": "^6.7.1",
-    "mocha": "^6.2.2",
-    "mocha-typescript": "^1.1.17",
-    "ts-mocha": "^6.0.0",
-    "ts-node": "^8.5.2",
-    "typescript": "^3.7.2"
-  },
-  "scripts": {
-    "build": "npm install && npm run lint && npm run test && rm -rf ./dist && tsc",
-    "prepublishOnly": "npm run build",
-    "lint": "eslint . --ext .ts,.tsx",
-    "test": "ts-mocha --recursive ./app/**/*.spec.ts",
-    "postversion": "git push && git push --tags"
-  },
-  "author": "David Vedvick (dvedvick@gmail.com)",
-  "license": "ISC"
+	"name": "codefolio",
+	"version": "0.2.6",
+	"description": "A tool to help you show off your projects",
+	"main": "./dist/Index.js",
+	"type": "module",
+	"sideEffects": false,
+	"types": "./dist/Index.d.ts",
+	"files": [
+		"dist/**/*"
+	],
+	"dependencies": {
+		"mdast-squeeze-paragraphs": "^6.0.0",
+		"mdast-util-phrasing": "^4.0.0",
+		"remark-gfm": "^4.0.0",
+		"remark-parse": "^11.0.0",
+		"remark-stringify": "^11.0.0",
+		"unified": "^11.0.3",
+		"unified-stream": "^3.0.0",
+		"unist-util-find": "^3.0.0",
+		"unist-util-remove": "^4.0.0"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.3.6",
+		"@types/expect": "^24.3.0",
+		"@types/mocha": "^10.0.2",
+		"@types/node": "^20.7.0",
+		"@types/unist": "^3.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.7.3",
+		"@typescript-eslint/parser": "^6.7.3",
+		"chai": "^4.3.9",
+		"eslint": "^8.50.0",
+		"mocha": "10.2.0",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.2.2"
+	},
+	"scripts": {
+		"clean": "rm -rf dist",
+		"compile": "tsc",
+		"build": "npm install && npm run lint && npm run test && rm -rf ./dist && tsc",
+		"prepublishOnly": "npm run build",
+		"lint": "eslint . --ext .ts,.tsx",
+		"test": "mocha --recursive ./app/**/*.spec.ts",
+		"postversion": "git push && git push --tags"
+	},
+	"author": "David Vedvick (dvedvick@gmail.com)",
+	"license": "ISC"
 }

@@ -4,7 +4,7 @@ import { expect } from "chai";
 describe("given text", () => {
 	describe("with_an_immediate_level_one_heading", () => {
 		describe("when processing the project", () => {
-			const heading = "    My _Fake_ Project";
+			const heading = "    My *Fake* Project";
 
 			const nextHeading = "Another heading!!";
 

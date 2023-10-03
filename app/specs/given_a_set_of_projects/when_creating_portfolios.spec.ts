@@ -87,13 +87,13 @@ What a great project this is, with the labelled logos and everything.
 		}, {
 			headline: "A Very Special Project!",
 			summary: "This repo is even happier than the one above!",
-			body: "\n",
+			body: "",
 			image: { alt: "Happier", title: null, url: "happier.png" },
 			examples: []
 		}, {
 			headline: "This Project Has Its Own Logo",
 			summary: "This repo is very unique",
-			body: "\n",
+			body: "",
 			image: { url: "MyLogo/Project/logo.png" },
 			examples: [{
 				url: "MyLogo/Project/example.png"

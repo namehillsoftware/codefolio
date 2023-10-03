@@ -4,15 +4,15 @@ import { expect } from "chai";
 describe("given text", () => {
 	describe("with_a_paragraph_summary", () => {
 		describe("when processing the project", () => {
-			const heading = "    My _Fake_ Project";
+			const heading = "    My *Fake* Project";
 
 			const summary = " Wow this library **is** fantastic!";
 
 			const body =
 `Here's the **body** copy
 
-- Here's a bulleted list
-- With another bullet item
+* Here's a bulleted list
+* With another bullet item
 
 ## And here's a subsection
 
@@ -24,7 +24,7 @@ describe("given text", () => {
 
 ###### 6
 
-And some more text, _la-di-da-di-da_`;
+And some more text, *la-di-da-dEndi-da*`;
 
 			const projectTestProcessor = new ProjectTextProcessor();
 			const portfolio = projectTestProcessor.processProjectText(
