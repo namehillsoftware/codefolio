@@ -27,6 +27,8 @@ Here's the **body** copy
 
 And some more text, _la-di-da-di-da_`;
 
+			const image = "![Headline](./headline.png \"Headline\")";
+
 			const projectTestProcessor = new ProjectTextProcessor();
 			const portfolio = projectTestProcessor.processProjectText(
 				`
@@ -35,6 +37,8 @@ And some more text, _la-di-da-di-da_`;
 Some more random **text**.
 
 # ${heading}
+
+${image}
 
 ${body}
 
@@ -50,6 +54,12 @@ Here's some more text, hey hey!`);
 			it("then it should not have a summary", () => expect(portfolio.summary).to.be.null);
 
 			it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
+
+			it("then it should have the right image", () => expect(portfolio.image).to.deep.equal({
+				url: "./headline.png",
+				alt: "Headline",
+				title: "Headline"
+			}));
 		});
 	});
 });
