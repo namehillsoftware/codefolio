@@ -63,19 +63,8 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 	};
 }
 
-function firstOrDefault<T>(items: Iterable<T>, predicate?: ITest<T>) {
-	if (predicate)
-		items = skipUntil(items, predicate);
-	const results = Array.from(take(items, 1));
-	return results.length > 0 ? results[0] : null;
-}
-
 function isLevelOneHeading(node: Node) {
 	return node.type === "heading" && (<any>node).depth === 1;
-}
-
-function isValidSubheading(node: Node) {
-	return node && (node.type === "paragraph" || (node.type === "heading" && (<any>node).depth > 1)) && !findNode(node, n => n.type === "image");
 }
 
 function peelOffImage(bodyNode: Parent): Image {
@@ -97,25 +86,9 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 	processProjectText(text: string): Portfolio {
 		const markdown = markdownProcessor.parse(vfile(text)) as Parent;
 
-		let remainingElements = skipUntil(markdown.children, isLevelOneHeading);
-		const headlineParent = firstOrDefault(remainingElements) as Parent;
-		const headline: Parent = {
-			type: "paragraph",
-			children: headlineParent.children
-		};
+		const remainingElements = skipUntil(markdown.children, isLevelOneHeading);
 
-		remainingElements = skip(remainingElements, 1);
-
-		let subheadingCandidate = firstOrDefault(remainingElements) as Parent;
-
-		const subheading: Parent = isValidSubheading(subheadingCandidate)
-			? { type: "paragraph", children: subheadingCandidate.children }
-			: null;
-
-		if (subheading)
-			remainingElements = skip(remainingElements, 1);
-
-		const bodyContent = Array.from(takeUntil(remainingElements, isLevelOneHeading));
+		const bodyContent = [...take(remainingElements, 1), ...takeUntil(skip(remainingElements, 1), isLevelOneHeading)];
 
 		const bodyNode: Parent = {
 			type: "root",
@@ -133,9 +106,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 		squeezeParagraphs(bodyNode);
 
 		return {
-			headline: markdownProcessor.stringify(headline),
 			body: markdownProcessor.stringify(bodyNode),
-			summary: subheading !== null ? markdownProcessor.stringify(subheading) : null,
 			image: headlineImage,
 			examples: examples,
 		};
