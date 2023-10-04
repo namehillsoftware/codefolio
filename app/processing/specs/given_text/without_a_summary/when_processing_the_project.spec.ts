@@ -49,11 +49,7 @@ ${body}
 
 Here's some more text, hey hey!`);
 
-			it("then it should have the right headline", () => expect(portfolio.headline.trim()).to.equal(heading.trim()));
-
-			it("then it should not have a summary", () => expect(portfolio.summary).to.be.null);
-
-			it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
+			it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(`# ${heading.trim()}` + "\n\n" + body.trim()));
 
 			it("then it should have the right image", () => expect(portfolio.image).to.deep.equal({
 				url: "./headline.png",

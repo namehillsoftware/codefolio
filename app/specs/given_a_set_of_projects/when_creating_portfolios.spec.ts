@@ -79,21 +79,15 @@ What a great project this is, with the labelled logos and everything.
 	describe("When creating portfolios", async () => {
 		const promisedPortfolios = portfolioCreator.promisePortfolios(projects);
 		it("it returns an array of portfolios", async () => expect(await promisedPortfolios).to.deep.equal([{
-			headline: "A happy repo",
-			summary: "This is a happy repo",
-			body: "In here, everyone is happier\n",
+			body: "# A happy repo\n\nThis is a happy repo\n\nIn here, everyone is happier\n",
 			image: { alt: "Happy", title: null, url: "happy.png" },
 			examples: []
 		}, {
-			headline: "A Very Special Project!",
-			summary: "This repo is even happier than the one above!",
-			body: "\n",
+			body: "# A Very Special Project!\n\nThis repo is even happier than the one above!\n",
 			image: { alt: "Happier", title: null, url: "happier.png" },
 			examples: []
 		}, {
-			headline: "This Project Has Its Own Logo",
-			summary: "This repo is very unique",
-			body: "\n",
+			body: "# This Project Has Its Own Logo\n\nThis repo is very unique\n",
 			image: { url: "MyLogo/Project/logo.png" },
 			examples: [{
 				url: "MyLogo/Project/example.png"
@@ -103,9 +97,7 @@ What a great project this is, with the labelled logos and everything.
 				title: "Animated Working GIF"
 			}]
 		}, {
-			headline: "The Labelled Logos!!",
-			summary: "Here's some wild text my friend",
-			body: "What a great project this is, with the labelled logos and everything.\n",
+			body: "# The Labelled Logos!!\n\nHere's some wild text my friend\n\nWhat a great project this is, with the labelled logos and everything.\n",
 			image: {
 				url: path.join(labelledLogoProject, labelledLogoLocation),
 				alt: "Alternate",
