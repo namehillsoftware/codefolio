@@ -11,7 +11,7 @@
   "dependencies": {
     "mdast-squeeze-paragraphs": "^3.0.5",
     "mdast-util-phrasing": "^1.0.3",
-    "remark-parse": "^7.0.2",
+    "remark-parse": "^11.0.0",
     "remark-stringify": "^7.0.4",
     "unified": "^8.4.2",
     "unified-stream": "^1.0.5",
