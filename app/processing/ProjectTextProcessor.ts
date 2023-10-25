@@ -11,7 +11,7 @@ import Portfolio from "../Portfolio";
 import {VFile} from "vfile";
 import { Node, Parent } from "unist";
 import {Root} from "remark-parse/lib";
-import {Heading, Paragraph, RootContent} from "mdast";
+import {RootContent} from "mdast";
 import remarkGfm from "remark-gfm";
 
 const markdownProcessor = unified()
