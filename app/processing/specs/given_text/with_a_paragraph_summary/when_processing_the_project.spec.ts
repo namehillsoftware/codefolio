@@ -46,11 +46,11 @@ ${body}
 
 Here's some more text, hey hey!`);
 
-			it("then it should have the right headline", () => expect(portfolio.headline.trim()).to.equal(heading.trim()));
+			it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(`# ${heading.trim()}
 
-			it("then it should have the right summary", () => expect(portfolio.summary.trim()).to.equal(summary.trim()));
+${summary.trim()}
 
-			it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(body.trim()));
+${body.trim()}`));
 		});
 	});
 });

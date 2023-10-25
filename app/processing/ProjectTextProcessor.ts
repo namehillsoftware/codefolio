@@ -69,19 +69,8 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 	};
 }
 
-function firstOrDefault<T>(items: Iterable<T>, predicate?: ITest<T>) {
-	if (predicate)
-		items = skipUntil(items, predicate);
-	const results = Array.from(take(items, 1));
-	return results.length > 0 ? results[0] : null;
-}
-
 function isLevelOneHeading(node: Node) {
 	return node.type === "heading" && (<any>node).depth === 1;
-}
-
-function isValidSubheading(node: Node) {
-	return node && (node.type === "paragraph" || (node.type === "heading" && (<any>node).depth > 1)) && !findNode(node, n => n.type === "image");
 }
 
 function peelOffImage(bodyNode: Parent): Image {
@@ -103,34 +92,9 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 	processProjectText(text: string): Portfolio {
 		const markdown = markdownProcessor.parse(new VFile(text));
 
-		let remainingElements = skipUntil(markdown.children, isLevelOneHeading);
-		const headlineParent = firstOrDefault(remainingElements) as Heading;
-		const headline: Root = {
-			type: "root",
-			children: [{
-				type: "paragraph",
-				children: headlineParent.children
-			}]
-		};
+		const remainingElements = skipUntil(markdown.children, isLevelOneHeading);
 
-		remainingElements = skip(remainingElements, 1);
-
-		const subheadingCandidate = firstOrDefault(remainingElements) as Paragraph;
-
-		const subheading: Root = isValidSubheading(subheadingCandidate)
-			? {
-				type: "root",
-				children: [{
-					type: "paragraph",
-					children: subheadingCandidate.children
-				}]
-			}
-			: null;
-
-		if (subheading)
-			remainingElements = skip(remainingElements, 1);
-
-		const bodyContent = Array.from(takeUntil(remainingElements, isLevelOneHeading));
+		const bodyContent = [...take(remainingElements, 1), ...takeUntil(skip(remainingElements, 1), isLevelOneHeading)];
 
 		const bodyNode: Root = {
 			type: "root",
@@ -148,9 +112,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 		squeezeParagraphs(bodyNode);
 
 		return {
-			headline: markdownProcessor.stringify(headline).trimEnd(),
 			body: markdownProcessor.stringify(bodyNode),
-			summary: subheading !== null ? markdownProcessor.stringify(subheading).trimEnd() : null,
 			image: headlineImage,
 			examples: [...examples.values()],
 		};
