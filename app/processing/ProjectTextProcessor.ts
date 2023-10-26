@@ -70,7 +70,7 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 }
 
 function isLevelOneHeading(node: Node) {
-	return node.type === "heading" && (<any>node).depth === 1;
+	return (<any>node).depth === 1 && node.type === "heading";
 }
 
 function peelOffImage(bodyNode: Parent): Image {
