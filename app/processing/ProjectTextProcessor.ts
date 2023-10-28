@@ -1,17 +1,23 @@
-import unified from "unified";
+import {unified} from "unified";
 import markdown from "remark-parse";
 import stringify from "remark-stringify";
-import findNode from "unist-util-find";
-import removeNode from "unist-util-remove";
-import squeezeParagraphs from "mdast-squeeze-paragraphs";
+import {find as findNode} from "unist-util-find";
+import {remove as removeNode} from "unist-util-remove";
+import {squeezeParagraphs} from "mdast-squeeze-paragraphs";
 import Image from "../Image";
 
 import IProcessProjectText from "./IProcessProjectText";
 import Portfolio from "../Portfolio";
-import vfile from "vfile";
+import {VFile} from "vfile";
 import { Node, Parent } from "unist";
+import {Root} from "remark-parse/lib";
+import {RootContent} from "mdast";
+import remarkGfm from "remark-gfm";
 
-const markdownProcessor = unified().use(markdown, {gfm: true}).use(stringify, { listItemIndent: "mixed" });
+const markdownProcessor = unified()
+	.use(markdown, {gfm: true})
+	.use(remarkGfm)
+	.use(stringify, { listItemIndent: "mixed" });
 
 interface ITest<T> {
     (item: T): boolean;
@@ -64,7 +70,7 @@ function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
 }
 
 function isLevelOneHeading(node: Node) {
-	return node.type === "heading" && (<any>node).depth === 1;
+	return (<any>node).depth === 1 && node.type === "heading";
 }
 
 function peelOffImage(bodyNode: Parent): Image {
@@ -84,23 +90,23 @@ function peelOffImage(bodyNode: Parent): Image {
 
 export default class ProjectTextProcessor implements IProcessProjectText {
 	processProjectText(text: string): Portfolio {
-		const markdown = markdownProcessor.parse(vfile(text)) as Parent;
+		const markdown = markdownProcessor.parse(new VFile(text));
 
 		const remainingElements = skipUntil(markdown.children, isLevelOneHeading);
 
 		const bodyContent = [...take(remainingElements, 1), ...takeUntil(skip(remainingElements, 1), isLevelOneHeading)];
 
-		const bodyNode: Parent = {
+		const bodyNode: Root = {
 			type: "root",
-			children: bodyContent
+			children: bodyContent as RootContent[]
 		};
 
 		const headlineImage = peelOffImage(bodyNode);
 
-		const examples = [];
+		const examples = new Map<string, Image>();
 		let image: Image = null;
 		while ((image = peelOffImage(bodyNode)) != null) {
-			examples.push(image);
+			examples.set(image.url, image);
 		}
 
 		squeezeParagraphs(bodyNode);
@@ -108,7 +114,7 @@ export default class ProjectTextProcessor implements IProcessProjectText {
 		return {
 			body: markdownProcessor.stringify(bodyNode),
 			image: headlineImage,
-			examples: examples,
+			examples: [...examples.values()],
 		};
 	}
 }

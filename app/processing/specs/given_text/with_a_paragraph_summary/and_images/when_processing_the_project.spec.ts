@@ -5,7 +5,7 @@ describe("given text", () => {
 	describe("with a paragraph summary", () => {
 		describe("and images", () => {
 			describe("when processing the project", () => {
-				const heading = "    My _Fake_ Project";
+				const heading = "    My *Fake* Project";
 
 				const summary = " Wow this library **is** fantastic!";
 
@@ -39,7 +39,7 @@ Here's some more text, hey hey!`);
 
 				it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(`# ${heading.trim()}
 
-${summary}`));
+${summary.trim()}`));
 
 				it("then it should have the right headline image", () => expect(portfolio.image).to.deep.equal({
 					url: "image.png",

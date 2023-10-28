@@ -1,30 +1,54 @@
 # Codefolio
 
+![logo](./folder-multiple-outline.svg)
+
 Codefolio is a basic portfolio renderer for your projects.
 
-## Why?
+## Features
 
-Codefolio fulfills a niche need: developers often have many side projects, and they want to display them (outside of a 3rd party context such as Github). The challenge in displaying those projects is in keeping the projects updated.
-
-## How?
-
-Codefolio aims to solve this problem by providing a convention for reading a basic **headline**, **summary**, and **image** for the project from the project's README.md (or README.markdown, README):
-
-- The first level one heading (`# Hi I'm a level one heading`) is the headline for the project
-- The text after that heading is the body, until the **next** level one heading is hit - not including any images
-- The first image before the second level one heading in the document is considered the logo for the project
-- All other images before the second level are used as example images
+- Follow simple conventions to produce a standard `Portfolio` object from a Markdown Readme.
+- Or bring your own conventions, and just use Codefolio to produce standard `Portfolio` objects.
 
 # Example Usage
 
-Portfolio takes as input a set of Markdown documents and outputs those documents into a normalized array of `Portfolio` objects.
+Codefolio has a convention for reading a basic body and image from a project's README.md (or README.markdown, README):
 
-```javascript
-import portfolio from 'portfolio'
+- The first level one heading (`# Hi I'm a level one heading`) is where the body of the portfolio begins.
+- The text after that heading is the body, until the **next** level one heading is hit - not including any images.
+- The first image before the second level one heading in the document is considered the main image for the project.
+- All other images before the second level are used as example images.
 
-const portfolios = await portfolio.promisePortfolios('./sandbox/codefolio');
+If following this convention, given this markdown in a `README.md` file:
 
-// Do things with portfolios...
+```markdown
+# Hi I'm a level one heading
+
+![img](./img.png)
+
+Here's the body!
+```
+
+When passed into Codefolio:
+
+```js
+const codefolio = require('codefolio');
+
+
+const portfolios = await codefolio.promisePortfolios(['README.md']);
+```
+
+Produces an object like this:
+
+```json5
+{
+  body: "# Hi I'm a level one heading\n\nHere's the body!",
+  image: {
+    url: "./img.png",
+    alt: "img",
+    title: "img"
+  },
+  examples: []
+}
 ```
 
 # Contributing

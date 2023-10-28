@@ -4,16 +4,16 @@ import { expect } from "chai";
 describe("given text", () => {
 	describe("without a summary", () => {
 		describe("when processing the project", () => {
-			const heading = "    My _Fake_ Project";
+			const heading = "    My ***Fake*** Project";
 
 			const body =
 `
-- A list begins right away
+* A list begins right away
 
 Here's the **body** copy
 
-- Here's a bulleted list
-- With another bullet item
+* Here's a bulleted list
+* With another bullet item
 
 ## And here's a subsection
 
@@ -25,7 +25,7 @@ Here's the **body** copy
 
 ###### 6
 
-And some more text, _la-di-da-di-da_`;
+And some more text, *la-di-da-di-da*`;
 
 			const image = "![Headline](./headline.png \"Headline\")";
 
@@ -50,6 +50,12 @@ ${body}
 Here's some more text, hey hey!`);
 
 			it("then it should have the right body", () => expect(portfolio.body.trim()).to.equal(`# ${heading.trim()}` + "\n\n" + body.trim()));
+
+			it("then it should have the right image", () => expect(portfolio.image).to.deep.equal({
+				url: "./headline.png",
+				alt: "Headline",
+				title: "Headline"
+			}));
 
 			it("then it should have the right image", () => expect(portfolio.image).to.deep.equal({
 				url: "./headline.png",

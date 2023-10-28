@@ -3,7 +3,7 @@ import { expect } from "chai";
 
 describe("given text", () => {
 	describe("when processing the project", () => {
-		const heading = "    My _Fake_ Project";
+		const heading = "    My *Fake* Project";
 
 		const summary = "Some **great** stuff here";
 
@@ -12,8 +12,8 @@ describe("given text", () => {
 		const firstBodyHalf =
 `Here's the **body** copy
 
-- Here's a bulleted list
-- With another bullet item`;
+* Here's a bulleted list
+* With another bullet item`;
 
 		const secondBodyHalf =
 `## And here's a subsection
@@ -26,7 +26,7 @@ describe("given text", () => {
 
 ###### 6
 
-And some more text, _la-di-da-di-da_`;
+And some more text, *la-di-da-di-da*`;
 
 		const body =
 `${firstBodyHalf}
