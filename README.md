@@ -2,12 +2,51 @@
 
 ![logo](./folder-multiple-outline.svg)
 
-Codefolio is a basic portfolio renderer for your projects.
+Codefolio is a basic portfolio object builder for your projects.
 
 ## Features
 
 - Follow simple conventions to produce a standard `Portfolio` object from a Markdown Readme.
 - Or bring your own conventions, and just use Codefolio to produce standard `Portfolio` objects.
+
+For example, given this markdown in a `README.md` file:
+
+```markdown
+# Hi I'm a level one heading
+
+![img](./img.png)
+
+Here's the body!
+```
+
+When passed into Codefolio:
+
+```js
+const codefolio = require('codefolio');
+
+
+const portfolios = await codefolio.promisePortfolios(['README.md']);
+```
+
+Produces a `Portfolio` object like this:
+
+```json5
+{
+  body: "# Hi I'm a level one heading\n\nHere's the body!",
+  image: {
+    url: "./img.png",
+    alt: "img",
+    title: "img"
+  },
+  examples: []
+}
+```
+
+## Installation
+
+```shell
+npm install --save-dev codefolio
+```
 
 # Example Usage
 
@@ -37,7 +76,7 @@ const codefolio = require('codefolio');
 const portfolios = await codefolio.promisePortfolios(['README.md']);
 ```
 
-Produces an object like this:
+Produces a `Portfolio` object like this:
 
 ```json5
 {
