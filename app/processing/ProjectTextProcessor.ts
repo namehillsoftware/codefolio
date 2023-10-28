@@ -19,10 +19,6 @@ const markdownProcessor = unified()
 	.use(remarkGfm)
 	.use(stringify, { listItemIndent: "mixed" });
 
-interface ITest<T> {
-    (item: T): boolean;
-}
-
 function skip<T>(items: Iterable<T>, count: number) {
 	return {
 		*[Symbol.iterator]() {
@@ -32,7 +28,7 @@ function skip<T>(items: Iterable<T>, count: number) {
 	};
 }
 
-function skipUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
+function skipUntil<T>(items: Iterable<T>, predicate: (item: T) => boolean) {
 	return {
 		*[Symbol.iterator]() {
 			let firstHit = false;
@@ -58,7 +54,7 @@ function take<T>(items: Iterable<T>, count: number) {
 	};
 }
 
-function takeUntil<T>(items: Iterable<T>, predicate: ITest<T>) {
+function takeUntil<T>(items: Iterable<T>, predicate: (item: T) => boolean) {
 	return {
 		*[Symbol.iterator]() {
 			for (const item of items) {
