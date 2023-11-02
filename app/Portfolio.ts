@@ -1,4 +1,4 @@
-import Image from "./Image";
+import Image from "./Image.js";
 
 export default interface Portfolio {
     body: string;

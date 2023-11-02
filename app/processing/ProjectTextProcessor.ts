@@ -4,14 +4,13 @@ import stringify from "remark-stringify";
 import {find as findNode} from "unist-util-find";
 import {remove as removeNode} from "unist-util-remove";
 import {squeezeParagraphs} from "mdast-squeeze-paragraphs";
-import Image from "../Image";
+import Image from "../Image.js";
 
-import IProcessProjectText from "./IProcessProjectText";
-import Portfolio from "../Portfolio";
+import IProcessProjectText from "./IProcessProjectText.js";
+import Portfolio from "../Portfolio.js";
 import {VFile} from "vfile";
 import { Node, Parent } from "unist";
-import {Root} from "remark-parse/lib";
-import {RootContent} from "mdast";
+import {RootContent, Root} from "mdast";
 import remarkGfm from "remark-gfm";
 
 const markdownProcessor = unified()

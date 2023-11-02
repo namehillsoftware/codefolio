@@ -1,7 +1,7 @@
-import ISupplyProjectText from "../../supply/ISupplyProjectText";
-import PortfolioCreator from "../../PortfolioCreator";
+import ISupplyProjectText from "../../supply/ISupplyProjectText.js";
+import PortfolioCreator from "../../PortfolioCreator.js";
 import { expect } from "chai";
-import ProjectTextProcessor from "../../processing/ProjectTextProcessor";
+import ProjectTextProcessor from "../../processing/ProjectTextProcessor.js";
 import path from "path";
 
 describe("Given a set of projects", () => {

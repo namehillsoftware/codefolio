@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import ReadmeFileTextFeed from "../../ReadmeFileTextFeed";
-import IGetDirectoryFiles from "../../../resources/IGetDirectoryFiles";
-import IReadFiles from "../../../resources/IReadFiles";
-import ICheckIfPathsAreDirectories from "../../../resources/ICheckIfPathsAreDirectories";
+import ReadmeFileTextFeed from "../../ReadmeFileTextFeed.js";
+import IGetDirectoryFiles from "../../../resources/IGetDirectoryFiles.js";
+import IReadFiles from "../../../resources/IReadFiles.js";
+import ICheckIfPathsAreDirectories from "../../../resources/ICheckIfPathsAreDirectories.js";
 
 describe("Given repositories", () => {
 	describe("When reading project text", () => {

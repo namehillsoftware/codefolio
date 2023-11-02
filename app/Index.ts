@@ -1,10 +1,10 @@
-import Portfolio from "./Portfolio";
-import PortfolioCreator from "./PortfolioCreator";
-import ReadmeFileTextFeed from "./supply/ReadmeFileTextFeed";
-import DirectoryReader from "./resources/DirectoryReader";
-import FileReader from "./resources/FileReader";
-import ProjectTextProcessor from "./processing/ProjectTextProcessor";
-import Project from "./Project";
+import Portfolio from "./Portfolio.js";
+import PortfolioCreator from "./PortfolioCreator.js";
+import ReadmeFileTextFeed from "./supply/ReadmeFileTextFeed.js";
+import DirectoryReader from "./resources/DirectoryReader.js";
+import FileReader from "./resources/FileReader.js";
+import ProjectTextProcessor from "./processing/ProjectTextProcessor.js";
+import Project from "./Project.js";
 
 const directoryReader = new DirectoryReader();
 
