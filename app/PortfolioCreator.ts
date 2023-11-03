@@ -1,9 +1,9 @@
-import Portfolio from "./Portfolio";
-import ISupplyProjectText from "./supply/ISupplyProjectText";
-import IProcessProjectText from "./processing/IProcessProjectText";
-import Project from "./Project";
+import Portfolio from "./Portfolio.js";
+import ISupplyProjectText from "./supply/ISupplyProjectText.js";
+import IProcessProjectText from "./processing/IProcessProjectText.js";
+import Project from "./Project.js";
 import path from "path";
-import Image from "./Image";
+import Image from "./Image.js";
 
 function isString(str: any): boolean {
 	return typeof(str) === "string" || str instanceof String;

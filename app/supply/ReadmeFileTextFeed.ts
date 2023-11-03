@@ -1,7 +1,7 @@
-import ISupplyProjectText from "./ISupplyProjectText";
-import IGetDirectoryFiles from "../resources/IGetDirectoryFiles";
-import IReadFiles from "../resources/IReadFiles";
-import ICheckIfPathsAreDirectories from "../resources/ICheckIfPathsAreDirectories";
+import ISupplyProjectText from "./ISupplyProjectText.js";
+import IGetDirectoryFiles from "../resources/IGetDirectoryFiles.js";
+import IReadFiles from "../resources/IReadFiles.js";
+import ICheckIfPathsAreDirectories from "../resources/ICheckIfPathsAreDirectories.js";
 
 const splitRegex = new RegExp(/[\\/]/, "g");
 

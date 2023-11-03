@@ -1,4 +1,4 @@
-import ProjectTextProcessor from "../../ProjectTextProcessor";
+import ProjectTextProcessor from "../../ProjectTextProcessor.js";
 import { expect } from "chai";
 
 describe("given text", () => {

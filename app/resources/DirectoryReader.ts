@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
-import IGetDirectoryFiles from "./IGetDirectoryFiles";
-import ICheckIfPathsAreDirectories from "./ICheckIfPathsAreDirectories";
+import IGetDirectoryFiles from "./IGetDirectoryFiles.js";
+import ICheckIfPathsAreDirectories from "./ICheckIfPathsAreDirectories.js";
 
 export default class DirectoryReader implements IGetDirectoryFiles, ICheckIfPathsAreDirectories {
 	async promiseIsDirectory(path: string): Promise<boolean> {

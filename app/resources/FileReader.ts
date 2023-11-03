@@ -1,4 +1,4 @@
-import IReadFiles from "./IReadFiles";
+import IReadFiles from "./IReadFiles.js";
 import { promises as fs} from "fs";
 
 export default class FileReader implements IReadFiles {
