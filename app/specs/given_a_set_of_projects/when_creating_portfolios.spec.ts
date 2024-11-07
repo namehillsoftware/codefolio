@@ -42,28 +42,28 @@ describe("Given a set of projects", () => {
 	const projectSupplier : ISupplyProjectText = {
 		promiseProjectText: (location) => {
 			switch (location) {
-			case "":
-				return Promise.resolve(`# A happy repo
+				case "":
+					return Promise.resolve(`# A happy repo
 
 This is a happy repo
 
 In here, everyone is happier
 
 ![Happy](happy.png)`);
-			case path.join(specialProjectLocation, "Description.markdown"):
-				return Promise.resolve(`# A Very Special Project!
+				case path.join(specialProjectLocation, "Description.markdown"):
+					return Promise.resolve(`# A Very Special Project!
 
 This repo is even happier than the one above!
 
 ![Happier](happier.png)`);
-			case logoProject:
-				return Promise.resolve(`# This Project Has Its Own Logo
+				case logoProject:
+					return Promise.resolve(`# This Project Has Its Own Logo
 
 This repo is very unique
 
 ![Happier](the-best-logo.png)`);
-			case labelledLogoProject:
-				return Promise.resolve(`# The Labelled Logos!!
+				case labelledLogoProject:
+					return Promise.resolve(`# The Labelled Logos!!
 
 Here's some wild text my friend
 
