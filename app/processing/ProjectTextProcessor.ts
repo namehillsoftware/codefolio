@@ -9,9 +9,10 @@ import Image from "../Image.js";
 import IProcessProjectText from "./IProcessProjectText.js";
 import Portfolio from "../Portfolio.js";
 import {VFile} from "vfile";
-import { Node, Parent } from "unist";
-import {RootContent, Root} from "mdast";
+import {Node, Parent} from "unist";
+import {Root, RootContent} from "mdast";
 import remarkGfm from "remark-gfm";
+import {JSDOM} from "jsdom";
 
 const markdownProcessor = unified()
 	.use(markdown, {gfm: true})
@@ -69,18 +70,31 @@ function isLevelOneHeading(node: Node) {
 }
 
 function peelOffImage(bodyNode: Parent): Image {
-	const imageNode = findNode(bodyNode, node => node.type === "image") as any;
+	// @ts-ignore
+	const imageNode = findNode(bodyNode, node => node.type === "image" || (node.type === "html" && node.value.startsWith("<img"))) as any;
 	if (!imageNode) return null;
 
-	const image = {
-		url: imageNode.url,
-		title: imageNode.title,
-		alt: imageNode.alt
-	};
+	removeNode(bodyNode, {cascade: false}, imageNode);
 
-	removeNode(bodyNode, { cascade: false }, imageNode);
-
-	return image;
+	switch (imageNode.type) {
+		case "image": {
+			return {
+				url: imageNode.url,
+				title: imageNode.title,
+				alt: imageNode.alt
+			};
+		}
+		case "html": {
+			const dom = new JSDOM(imageNode.value);
+			const img = dom.window.document.querySelector("img");
+			return {
+				url: img.src,
+				title: img.title,
+				alt: img.alt,
+			};
+		}
+		default: return null;
+	}
 }
 
 export default class ProjectTextProcessor implements IProcessProjectText {
